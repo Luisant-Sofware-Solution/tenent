@@ -236,7 +236,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\dell\\Music\\bill\\backend\\prisma\\generated\\client",
+      "value": "D:\\tenent\\tenent\\backend\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -252,7 +252,7 @@ const config = {
     "previewFeatures": [
       "multiSchema"
     ],
-    "sourceFilePath": "C:\\Users\\dell\\Music\\bill\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\tenent\\tenent\\backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -266,6 +266,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
