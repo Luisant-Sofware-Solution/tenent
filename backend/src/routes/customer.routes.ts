@@ -1,10 +1,11 @@
-import { Router } from 'express';
-import { createCustomer } from '../controllers/customer.controller';
+// src/routes/customer.routes.ts
 
-const router = Router();
+import express from 'express'
+import { createCustomer, getAllCustomers } from '../controllers/customer.controller'
 
-router.post('/', createCustomer);
-import { getCustomers } from '../controllers/customer.controller';
-router.get('/', getCustomers);
+const router = express.Router()
 
-export default router;
+router.post('/', createCustomer)
+router.get('/', getAllCustomers)
+
+export default router

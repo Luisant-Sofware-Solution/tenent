@@ -1,9 +1,12 @@
-import { Router } from 'express';
-import { createSale, getSales } from '../controllers/sales.controller';
+import express from 'express'
+import { createSales } from '../controllers/sales.controller'
 
-const router = Router();
+const router = express.Router()
 
-router.post('/', createSale);
-router.get('/', getSales);
+// POST /api/sales
+router.post('/', createSales)
 
-export default router;
+// GET /api/sales
+// router.get('/', getAllSales)
+
+export default router

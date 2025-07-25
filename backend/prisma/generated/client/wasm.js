@@ -142,19 +142,22 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  category: 'category'
+  category: 'category',
+  companyId: 'companyId'
 };
 
 exports.Prisma.UnitScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  decimalNOs: 'decimalNOs'
+  decimalNOs: 'decimalNOs',
+  companyId: 'companyId'
 };
 
 exports.Prisma.TaxScalarFieldEnum = {
   id: 'id',
   taxName: 'taxName',
-  percentage: 'percentage'
+  percentage: 'percentage',
+  companyId: 'companyId'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
@@ -175,7 +178,8 @@ exports.Prisma.ProductScalarFieldEnum = {
   createdDate: 'createdDate',
   modifiedDate: 'modifiedDate',
   modifiedUserId: 'modifiedUserId',
-  imageSaveInLocation: 'imageSaveInLocation'
+  imageSaveInLocation: 'imageSaveInLocation',
+  companyId: 'companyId'
 };
 
 exports.Prisma.CustomerScalarFieldEnum = {
@@ -208,7 +212,8 @@ exports.Prisma.SalesScalarFieldEnum = {
   modifiedUserId: 'modifiedUserId',
   modifiedDate: 'modifiedDate',
   timeOfBill: 'timeOfBill',
-  timeOfModifyBill: 'timeOfModifyBill'
+  timeOfModifyBill: 'timeOfModifyBill',
+  companyId: 'companyId'
 };
 
 exports.Prisma.SuperAdminScalarFieldEnum = {

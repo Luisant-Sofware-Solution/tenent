@@ -5,7 +5,7 @@ import taxRoutes from './routes/tax.routes';
 import unitRoutes from './routes/unit.routes';
 import productRoutes from './routes/product.routes';
 import salesRoutes from './routes/sales.routes';
-import { createCustomer } from './controllers/customer.controller';
+// import { createCustomer } from './controllers/customer.controller';
 import companyRoutes from './routes/company.routes';
 import customerRoutes from './routes/customer.routes';
 import superAdminRoutes from './routes/superadmin.routes';
@@ -16,14 +16,14 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/units', unitRoutes);
-app.use('/api/taxes', taxRoutes);
-app.use('/api/products', productRoutes);
+app.use('/api/taxes', taxRoutes)
+app.use('/api/products', productRoutes)
 app.use('/api/sales', salesRoutes);
-// Add other routes as needed
+// // Add other routes as needed
 app.use('/api/customers', customerRoutes);
 app.use('/api', companyRoutes);
-// Example for creating a customer
-app.post('/api/customers', createCustomer);
+// // Example for creating a customer
+// app.post('/api/customers', createCustomer);
 app.use('/api/superadmin', superAdminRoutes);
 
 app.listen(3000, () => {

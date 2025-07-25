@@ -1,25 +1,37 @@
-import { Request, Response } from 'express';
-import prisma from '../db/client';
+import { Request, Response } from 'express'
+import prisma from '../db/client' // Adjust this import to your Prisma client
 
-// Create a new category
+// POST /categories
 export const createCategory = async (req: Request, res: Response) => {
-  const { category } = req.body;
   try {
-    const newCategory = await prisma.category.create({
-      data: { category },
-    });
-    res.status(201).json(newCategory);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to create category' });
-  }
-};
+    const { category, companyId } = req.body
 
-// Get all categories
-export const getCategories = async (_req: Request, res: Response) => {
-  try {
-    const categories = await prisma.category.findMany();
-    res.status(200).json(categories);
+    // Basic validation
+    if (!category || !companyId) {
+      return res.status(400).json({ error: 'Category and companyId are required.' })
+    }
+
+    // Optional: Check if company exists
+    const company = await prisma.company.findUnique({
+      where: { id: Number(companyId) },
+    })
+
+    if (!company) {
+      return res.status(404).json({ error: 'Company not found.' })
+    }
+
+    const newCategory = await prisma.category.create({
+      data: {
+        category,
+        company: {
+          connect: { id: Number(companyId) },
+        },
+      },
+    })
+
+    return res.status(201).json(newCategory)
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch categories' });
+    console.error('Error creating category:', error)
+    return res.status(500).json({ error: 'Internal server error' })
   }
-};
+}

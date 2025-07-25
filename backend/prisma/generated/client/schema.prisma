@@ -20,7 +20,12 @@ model Company {
   createdAt     DateTime @default(now())
   status        String   @default("active")
 
-  users User[]
+  users      User[]
+  categories Category[]
+  units      Unit[]
+  taxes      Tax[]
+  products   Product[]
+  sales      Sales[]
 
   @@map("Company")
   @@schema("public")
@@ -34,41 +39,44 @@ model User {
   role      String
   companyId Int
   company   Company    @relation(fields: [companyId], references: [id])
-  // Add opposite relation fields for Product, Customer, Sales if needed
   products  Product[]
   customers Customer[]
   sales     Sales[]
 
-  @@schema("public") // Add this if you use schemas
+  @@map("User")
+  @@schema("public")
 }
 
 model Category {
-  id       Int    @id @default(autoincrement())
-  category String
-
-  products Product[]
+  id        Int       @id @default(autoincrement())
+  category  String
+  companyId Int
+  company   Company   @relation(fields: [companyId], references: [id])
+  products  Product[]
 
   @@map("Category")
   @@schema("public")
 }
 
 model Unit {
-  id         Int    @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   name       String
   decimalNOs Int
-
-  products Product[]
+  companyId  Int
+  company    Company   @relation(fields: [companyId], references: [id])
+  products   Product[]
 
   @@map("Unit")
   @@schema("public")
 }
 
 model Tax {
-  id         Int     @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   taxName    String
   percentage Decimal
-
-  products Product[]
+  companyId  Int
+  company    Company   @relation(fields: [companyId], references: [id])
+  products   Product[]
 
   @@map("Tax")
   @@schema("public")
@@ -93,11 +101,14 @@ model Product {
   modifiedDate        DateTime?
   modifiedUserId      Int?
   imageSaveInLocation String?
+  companyId           Int
 
+  // 🔗 Relations
   category Category @relation(fields: [categoryId], references: [id])
   unit     Unit     @relation(fields: [unitId], references: [id])
   tax      Tax      @relation(fields: [taxId], references: [id])
   user     User     @relation(fields: [userId], references: [id])
+  company  Company  @relation(fields: [companyId], references: [id])
   sales    Sales[]
 
   @@map("Product")
@@ -141,7 +152,10 @@ model Sales {
   modifiedDate     DateTime?
   timeOfBill       DateTime?
   timeOfModifyBill DateTime?
+  companyId        Int
 
+  // 🔗 Relations
+  company  Company  @relation(fields: [companyId], references: [id])
   customer Customer @relation(fields: [customerId], references: [id])
   product  Product  @relation(fields: [itemId], references: [id])
   user     User     @relation(fields: [userId], references: [id])

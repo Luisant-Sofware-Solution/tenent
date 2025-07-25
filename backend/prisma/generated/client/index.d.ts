@@ -1598,10 +1598,20 @@ export namespace Prisma {
 
   export type CompanyCountOutputType = {
     users: number
+    categories: number
+    units: number
+    taxes: number
+    products: number
+    sales: number
   }
 
   export type CompanyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | CompanyCountOutputTypeCountUsersArgs
+    categories?: boolean | CompanyCountOutputTypeCountCategoriesArgs
+    units?: boolean | CompanyCountOutputTypeCountUnitsArgs
+    taxes?: boolean | CompanyCountOutputTypeCountTaxesArgs
+    products?: boolean | CompanyCountOutputTypeCountProductsArgs
+    sales?: boolean | CompanyCountOutputTypeCountSalesArgs
   }
 
   // Custom InputTypes
@@ -1620,6 +1630,41 @@ export namespace Prisma {
    */
   export type CompanyCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoryWhereInput
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountUnitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UnitWhereInput
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountTaxesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaxWhereInput
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductWhereInput
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountSalesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalesWhereInput
   }
 
 
@@ -2054,6 +2099,11 @@ export namespace Prisma {
     createdAt?: boolean
     status?: boolean
     users?: boolean | Company$usersArgs<ExtArgs>
+    categories?: boolean | Company$categoriesArgs<ExtArgs>
+    units?: boolean | Company$unitsArgs<ExtArgs>
+    taxes?: boolean | Company$taxesArgs<ExtArgs>
+    products?: boolean | Company$productsArgs<ExtArgs>
+    sales?: boolean | Company$salesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["company"]>
 
@@ -2093,6 +2143,11 @@ export namespace Prisma {
   export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "name" | "adminEmail" | "adminPassword" | "dbUrl" | "createdAt" | "status", ExtArgs["result"]["company"]>
   export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Company$usersArgs<ExtArgs>
+    categories?: boolean | Company$categoriesArgs<ExtArgs>
+    units?: boolean | Company$unitsArgs<ExtArgs>
+    taxes?: boolean | Company$taxesArgs<ExtArgs>
+    products?: boolean | Company$productsArgs<ExtArgs>
+    sales?: boolean | Company$salesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CompanyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2102,6 +2157,11 @@ export namespace Prisma {
     name: "Company"
     objects: {
       users: Prisma.$UserPayload<ExtArgs>[]
+      categories: Prisma.$CategoryPayload<ExtArgs>[]
+      units: Prisma.$UnitPayload<ExtArgs>[]
+      taxes: Prisma.$TaxPayload<ExtArgs>[]
+      products: Prisma.$ProductPayload<ExtArgs>[]
+      sales: Prisma.$SalesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2507,6 +2567,11 @@ export namespace Prisma {
   export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     users<T extends Company$usersArgs<ExtArgs> = {}>(args?: Subset<T, Company$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    categories<T extends Company$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, Company$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    units<T extends Company$unitsArgs<ExtArgs> = {}>(args?: Subset<T, Company$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    taxes<T extends Company$taxesArgs<ExtArgs> = {}>(args?: Subset<T, Company$taxesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    products<T extends Company$productsArgs<ExtArgs> = {}>(args?: Subset<T, Company$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sales<T extends Company$salesArgs<ExtArgs> = {}>(args?: Subset<T, Company$salesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2953,6 +3018,126 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Company.categories
+   */
+  export type Company$categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    where?: CategoryWhereInput
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    cursor?: CategoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Company.units
+   */
+  export type Company$unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Unit
+     */
+    select?: UnitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Unit
+     */
+    omit?: UnitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitInclude<ExtArgs> | null
+    where?: UnitWhereInput
+    orderBy?: UnitOrderByWithRelationInput | UnitOrderByWithRelationInput[]
+    cursor?: UnitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UnitScalarFieldEnum | UnitScalarFieldEnum[]
+  }
+
+  /**
+   * Company.taxes
+   */
+  export type Company$taxesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    where?: TaxWhereInput
+    orderBy?: TaxOrderByWithRelationInput | TaxOrderByWithRelationInput[]
+    cursor?: TaxWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaxScalarFieldEnum | TaxScalarFieldEnum[]
+  }
+
+  /**
+   * Company.products
+   */
+  export type Company$productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    where?: ProductWhereInput
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    cursor?: ProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
+  }
+
+  /**
+   * Company.sales
+   */
+  export type Company$salesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sales
+     */
+    select?: SalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sales
+     */
+    omit?: SalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalesInclude<ExtArgs> | null
+    where?: SalesWhereInput
+    orderBy?: SalesOrderByWithRelationInput | SalesOrderByWithRelationInput[]
+    cursor?: SalesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalesScalarFieldEnum | SalesScalarFieldEnum[]
   }
 
   /**
@@ -4183,50 +4368,60 @@ export namespace Prisma {
 
   export type CategoryAvgAggregateOutputType = {
     id: number | null
+    companyId: number | null
   }
 
   export type CategorySumAggregateOutputType = {
     id: number | null
+    companyId: number | null
   }
 
   export type CategoryMinAggregateOutputType = {
     id: number | null
     category: string | null
+    companyId: number | null
   }
 
   export type CategoryMaxAggregateOutputType = {
     id: number | null
     category: string | null
+    companyId: number | null
   }
 
   export type CategoryCountAggregateOutputType = {
     id: number
     category: number
+    companyId: number
     _all: number
   }
 
 
   export type CategoryAvgAggregateInputType = {
     id?: true
+    companyId?: true
   }
 
   export type CategorySumAggregateInputType = {
     id?: true
+    companyId?: true
   }
 
   export type CategoryMinAggregateInputType = {
     id?: true
     category?: true
+    companyId?: true
   }
 
   export type CategoryMaxAggregateInputType = {
     id?: true
     category?: true
+    companyId?: true
   }
 
   export type CategoryCountAggregateInputType = {
     id?: true
     category?: true
+    companyId?: true
     _all?: true
   }
 
@@ -4319,6 +4514,7 @@ export namespace Prisma {
   export type CategoryGroupByOutputType = {
     id: number
     category: string
+    companyId: number
     _count: CategoryCountAggregateOutputType | null
     _avg: CategoryAvgAggregateOutputType | null
     _sum: CategorySumAggregateOutputType | null
@@ -4343,6 +4539,8 @@ export namespace Prisma {
   export type CategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     category?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     products?: boolean | Category$productsArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
@@ -4350,34 +4548,46 @@ export namespace Prisma {
   export type CategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     category?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     category?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectScalar = {
     id?: boolean
     category?: boolean
+    companyId?: boolean
   }
 
-  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "category", ExtArgs["result"]["category"]>
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "category" | "companyId", ExtArgs["result"]["category"]>
   export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     products?: boolean | Category$productsArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type CategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
+  export type CategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
 
   export type $CategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Category"
     objects: {
+      company: Prisma.$CompanyPayload<ExtArgs>
       products: Prisma.$ProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       category: string
+      companyId: number
     }, ExtArgs["result"]["category"]>
     composites: {}
   }
@@ -4772,6 +4982,7 @@ export namespace Prisma {
    */
   export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     products<T extends Category$productsArgs<ExtArgs> = {}>(args?: Subset<T, Category$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4804,6 +5015,7 @@ export namespace Prisma {
   interface CategoryFieldRefs {
     readonly id: FieldRef<"Category", 'Int'>
     readonly category: FieldRef<"Category", 'String'>
+    readonly companyId: FieldRef<"Category", 'Int'>
   }
     
 
@@ -5053,6 +5265,10 @@ export namespace Prisma {
      */
     data: CategoryCreateManyInput | CategoryCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5123,6 +5339,10 @@ export namespace Prisma {
      * Limit how many Categories to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5249,29 +5469,34 @@ export namespace Prisma {
   export type UnitAvgAggregateOutputType = {
     id: number | null
     decimalNOs: number | null
+    companyId: number | null
   }
 
   export type UnitSumAggregateOutputType = {
     id: number | null
     decimalNOs: number | null
+    companyId: number | null
   }
 
   export type UnitMinAggregateOutputType = {
     id: number | null
     name: string | null
     decimalNOs: number | null
+    companyId: number | null
   }
 
   export type UnitMaxAggregateOutputType = {
     id: number | null
     name: string | null
     decimalNOs: number | null
+    companyId: number | null
   }
 
   export type UnitCountAggregateOutputType = {
     id: number
     name: number
     decimalNOs: number
+    companyId: number
     _all: number
   }
 
@@ -5279,29 +5504,34 @@ export namespace Prisma {
   export type UnitAvgAggregateInputType = {
     id?: true
     decimalNOs?: true
+    companyId?: true
   }
 
   export type UnitSumAggregateInputType = {
     id?: true
     decimalNOs?: true
+    companyId?: true
   }
 
   export type UnitMinAggregateInputType = {
     id?: true
     name?: true
     decimalNOs?: true
+    companyId?: true
   }
 
   export type UnitMaxAggregateInputType = {
     id?: true
     name?: true
     decimalNOs?: true
+    companyId?: true
   }
 
   export type UnitCountAggregateInputType = {
     id?: true
     name?: true
     decimalNOs?: true
+    companyId?: true
     _all?: true
   }
 
@@ -5395,6 +5625,7 @@ export namespace Prisma {
     id: number
     name: string
     decimalNOs: number
+    companyId: number
     _count: UnitCountAggregateOutputType | null
     _avg: UnitAvgAggregateOutputType | null
     _sum: UnitSumAggregateOutputType | null
@@ -5420,6 +5651,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     decimalNOs?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     products?: boolean | Unit$productsArgs<ExtArgs>
     _count?: boolean | UnitCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["unit"]>
@@ -5428,37 +5661,49 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     decimalNOs?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["unit"]>
 
   export type UnitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     decimalNOs?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["unit"]>
 
   export type UnitSelectScalar = {
     id?: boolean
     name?: boolean
     decimalNOs?: boolean
+    companyId?: boolean
   }
 
-  export type UnitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "decimalNOs", ExtArgs["result"]["unit"]>
+  export type UnitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "decimalNOs" | "companyId", ExtArgs["result"]["unit"]>
   export type UnitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     products?: boolean | Unit$productsArgs<ExtArgs>
     _count?: boolean | UnitCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UnitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UnitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UnitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
+  export type UnitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
 
   export type $UnitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Unit"
     objects: {
+      company: Prisma.$CompanyPayload<ExtArgs>
       products: Prisma.$ProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
       decimalNOs: number
+      companyId: number
     }, ExtArgs["result"]["unit"]>
     composites: {}
   }
@@ -5853,6 +6098,7 @@ export namespace Prisma {
    */
   export interface Prisma__UnitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     products<T extends Unit$productsArgs<ExtArgs> = {}>(args?: Subset<T, Unit$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5886,6 +6132,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Unit", 'Int'>
     readonly name: FieldRef<"Unit", 'String'>
     readonly decimalNOs: FieldRef<"Unit", 'Int'>
+    readonly companyId: FieldRef<"Unit", 'Int'>
   }
     
 
@@ -6135,6 +6382,10 @@ export namespace Prisma {
      */
     data: UnitCreateManyInput | UnitCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6205,6 +6456,10 @@ export namespace Prisma {
      * Limit how many Units to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6331,29 +6586,34 @@ export namespace Prisma {
   export type TaxAvgAggregateOutputType = {
     id: number | null
     percentage: Decimal | null
+    companyId: number | null
   }
 
   export type TaxSumAggregateOutputType = {
     id: number | null
     percentage: Decimal | null
+    companyId: number | null
   }
 
   export type TaxMinAggregateOutputType = {
     id: number | null
     taxName: string | null
     percentage: Decimal | null
+    companyId: number | null
   }
 
   export type TaxMaxAggregateOutputType = {
     id: number | null
     taxName: string | null
     percentage: Decimal | null
+    companyId: number | null
   }
 
   export type TaxCountAggregateOutputType = {
     id: number
     taxName: number
     percentage: number
+    companyId: number
     _all: number
   }
 
@@ -6361,29 +6621,34 @@ export namespace Prisma {
   export type TaxAvgAggregateInputType = {
     id?: true
     percentage?: true
+    companyId?: true
   }
 
   export type TaxSumAggregateInputType = {
     id?: true
     percentage?: true
+    companyId?: true
   }
 
   export type TaxMinAggregateInputType = {
     id?: true
     taxName?: true
     percentage?: true
+    companyId?: true
   }
 
   export type TaxMaxAggregateInputType = {
     id?: true
     taxName?: true
     percentage?: true
+    companyId?: true
   }
 
   export type TaxCountAggregateInputType = {
     id?: true
     taxName?: true
     percentage?: true
+    companyId?: true
     _all?: true
   }
 
@@ -6477,6 +6742,7 @@ export namespace Prisma {
     id: number
     taxName: string
     percentage: Decimal
+    companyId: number
     _count: TaxCountAggregateOutputType | null
     _avg: TaxAvgAggregateOutputType | null
     _sum: TaxSumAggregateOutputType | null
@@ -6502,6 +6768,8 @@ export namespace Prisma {
     id?: boolean
     taxName?: boolean
     percentage?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     products?: boolean | Tax$productsArgs<ExtArgs>
     _count?: boolean | TaxCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tax"]>
@@ -6510,37 +6778,49 @@ export namespace Prisma {
     id?: boolean
     taxName?: boolean
     percentage?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tax"]>
 
   export type TaxSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     taxName?: boolean
     percentage?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tax"]>
 
   export type TaxSelectScalar = {
     id?: boolean
     taxName?: boolean
     percentage?: boolean
+    companyId?: boolean
   }
 
-  export type TaxOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "taxName" | "percentage", ExtArgs["result"]["tax"]>
+  export type TaxOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "taxName" | "percentage" | "companyId", ExtArgs["result"]["tax"]>
   export type TaxInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     products?: boolean | Tax$productsArgs<ExtArgs>
     _count?: boolean | TaxCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type TaxIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type TaxIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type TaxIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
+  export type TaxIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
 
   export type $TaxPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tax"
     objects: {
+      company: Prisma.$CompanyPayload<ExtArgs>
       products: Prisma.$ProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       taxName: string
       percentage: Prisma.Decimal
+      companyId: number
     }, ExtArgs["result"]["tax"]>
     composites: {}
   }
@@ -6935,6 +7215,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaxClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     products<T extends Tax$productsArgs<ExtArgs> = {}>(args?: Subset<T, Tax$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6968,6 +7249,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Tax", 'Int'>
     readonly taxName: FieldRef<"Tax", 'String'>
     readonly percentage: FieldRef<"Tax", 'Decimal'>
+    readonly companyId: FieldRef<"Tax", 'Int'>
   }
     
 
@@ -7217,6 +7499,10 @@ export namespace Prisma {
      */
     data: TaxCreateManyInput | TaxCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7287,6 +7573,10 @@ export namespace Prisma {
      * Limit how many Taxes to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7420,6 +7710,7 @@ export namespace Prisma {
     mrp: Decimal | null
     userId: number | null
     modifiedUserId: number | null
+    companyId: number | null
   }
 
   export type ProductSumAggregateOutputType = {
@@ -7432,6 +7723,7 @@ export namespace Prisma {
     mrp: Decimal | null
     userId: number | null
     modifiedUserId: number | null
+    companyId: number | null
   }
 
   export type ProductMinAggregateOutputType = {
@@ -7453,6 +7745,7 @@ export namespace Prisma {
     modifiedDate: Date | null
     modifiedUserId: number | null
     imageSaveInLocation: string | null
+    companyId: number | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -7474,6 +7767,7 @@ export namespace Prisma {
     modifiedDate: Date | null
     modifiedUserId: number | null
     imageSaveInLocation: string | null
+    companyId: number | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -7495,6 +7789,7 @@ export namespace Prisma {
     modifiedDate: number
     modifiedUserId: number
     imageSaveInLocation: number
+    companyId: number
     _all: number
   }
 
@@ -7509,6 +7804,7 @@ export namespace Prisma {
     mrp?: true
     userId?: true
     modifiedUserId?: true
+    companyId?: true
   }
 
   export type ProductSumAggregateInputType = {
@@ -7521,6 +7817,7 @@ export namespace Prisma {
     mrp?: true
     userId?: true
     modifiedUserId?: true
+    companyId?: true
   }
 
   export type ProductMinAggregateInputType = {
@@ -7542,6 +7839,7 @@ export namespace Prisma {
     modifiedDate?: true
     modifiedUserId?: true
     imageSaveInLocation?: true
+    companyId?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -7563,6 +7861,7 @@ export namespace Prisma {
     modifiedDate?: true
     modifiedUserId?: true
     imageSaveInLocation?: true
+    companyId?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -7584,6 +7883,7 @@ export namespace Prisma {
     modifiedDate?: true
     modifiedUserId?: true
     imageSaveInLocation?: true
+    companyId?: true
     _all?: true
   }
 
@@ -7692,6 +7992,7 @@ export namespace Prisma {
     modifiedDate: Date | null
     modifiedUserId: number | null
     imageSaveInLocation: string | null
+    companyId: number
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -7732,10 +8033,12 @@ export namespace Prisma {
     modifiedDate?: boolean
     modifiedUserId?: boolean
     imageSaveInLocation?: boolean
+    companyId?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     tax?: boolean | TaxDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     sales?: boolean | Product$salesArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -7759,10 +8062,12 @@ export namespace Prisma {
     modifiedDate?: boolean
     modifiedUserId?: boolean
     imageSaveInLocation?: boolean
+    companyId?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     tax?: boolean | TaxDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7784,10 +8089,12 @@ export namespace Prisma {
     modifiedDate?: boolean
     modifiedUserId?: boolean
     imageSaveInLocation?: boolean
+    companyId?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     tax?: boolean | TaxDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
@@ -7809,14 +8116,16 @@ export namespace Prisma {
     modifiedDate?: boolean
     modifiedUserId?: boolean
     imageSaveInLocation?: boolean
+    companyId?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "itemCode" | "itemName" | "shortCode" | "printName" | "hsnCode" | "categoryId" | "unitId" | "taxId" | "prate" | "srate" | "mrp" | "isActive" | "userId" | "createdDate" | "modifiedDate" | "modifiedUserId" | "imageSaveInLocation", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "itemCode" | "itemName" | "shortCode" | "printName" | "hsnCode" | "categoryId" | "unitId" | "taxId" | "prate" | "srate" | "mrp" | "isActive" | "userId" | "createdDate" | "modifiedDate" | "modifiedUserId" | "imageSaveInLocation" | "companyId", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     tax?: boolean | TaxDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     sales?: boolean | Product$salesArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -7825,12 +8134,14 @@ export namespace Prisma {
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     tax?: boolean | TaxDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
   }
   export type ProductIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     tax?: boolean | TaxDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
   }
 
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7840,6 +8151,7 @@ export namespace Prisma {
       unit: Prisma.$UnitPayload<ExtArgs>
       tax: Prisma.$TaxPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
+      company: Prisma.$CompanyPayload<ExtArgs>
       sales: Prisma.$SalesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -7861,6 +8173,7 @@ export namespace Prisma {
       modifiedDate: Date | null
       modifiedUserId: number | null
       imageSaveInLocation: string | null
+      companyId: number
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -8259,6 +8572,7 @@ export namespace Prisma {
     unit<T extends UnitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitDefaultArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     tax<T extends TaxDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaxDefaultArgs<ExtArgs>>): Prisma__TaxClient<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     sales<T extends Product$salesArgs<ExtArgs> = {}>(args?: Subset<T, Product$salesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8307,6 +8621,7 @@ export namespace Prisma {
     readonly modifiedDate: FieldRef<"Product", 'DateTime'>
     readonly modifiedUserId: FieldRef<"Product", 'Int'>
     readonly imageSaveInLocation: FieldRef<"Product", 'String'>
+    readonly companyId: FieldRef<"Product", 'Int'>
   }
     
 
@@ -9938,6 +10253,7 @@ export namespace Prisma {
     amount: Decimal | null
     userId: number | null
     modifiedUserId: number | null
+    companyId: number | null
   }
 
   export type SalesSumAggregateOutputType = {
@@ -9952,6 +10268,7 @@ export namespace Prisma {
     amount: Decimal | null
     userId: number | null
     modifiedUserId: number | null
+    companyId: number | null
   }
 
   export type SalesMinAggregateOutputType = {
@@ -9974,6 +10291,7 @@ export namespace Prisma {
     modifiedDate: Date | null
     timeOfBill: Date | null
     timeOfModifyBill: Date | null
+    companyId: number | null
   }
 
   export type SalesMaxAggregateOutputType = {
@@ -9996,6 +10314,7 @@ export namespace Prisma {
     modifiedDate: Date | null
     timeOfBill: Date | null
     timeOfModifyBill: Date | null
+    companyId: number | null
   }
 
   export type SalesCountAggregateOutputType = {
@@ -10018,6 +10337,7 @@ export namespace Prisma {
     modifiedDate: number
     timeOfBill: number
     timeOfModifyBill: number
+    companyId: number
     _all: number
   }
 
@@ -10034,6 +10354,7 @@ export namespace Prisma {
     amount?: true
     userId?: true
     modifiedUserId?: true
+    companyId?: true
   }
 
   export type SalesSumAggregateInputType = {
@@ -10048,6 +10369,7 @@ export namespace Prisma {
     amount?: true
     userId?: true
     modifiedUserId?: true
+    companyId?: true
   }
 
   export type SalesMinAggregateInputType = {
@@ -10070,6 +10392,7 @@ export namespace Prisma {
     modifiedDate?: true
     timeOfBill?: true
     timeOfModifyBill?: true
+    companyId?: true
   }
 
   export type SalesMaxAggregateInputType = {
@@ -10092,6 +10415,7 @@ export namespace Prisma {
     modifiedDate?: true
     timeOfBill?: true
     timeOfModifyBill?: true
+    companyId?: true
   }
 
   export type SalesCountAggregateInputType = {
@@ -10114,6 +10438,7 @@ export namespace Prisma {
     modifiedDate?: true
     timeOfBill?: true
     timeOfModifyBill?: true
+    companyId?: true
     _all?: true
   }
 
@@ -10223,6 +10548,7 @@ export namespace Prisma {
     modifiedDate: Date | null
     timeOfBill: Date | null
     timeOfModifyBill: Date | null
+    companyId: number
     _count: SalesCountAggregateOutputType | null
     _avg: SalesAvgAggregateOutputType | null
     _sum: SalesSumAggregateOutputType | null
@@ -10264,6 +10590,8 @@ export namespace Prisma {
     modifiedDate?: boolean
     timeOfBill?: boolean
     timeOfModifyBill?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -10289,6 +10617,8 @@ export namespace Prisma {
     modifiedDate?: boolean
     timeOfBill?: boolean
     timeOfModifyBill?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -10314,6 +10644,8 @@ export namespace Prisma {
     modifiedDate?: boolean
     timeOfBill?: boolean
     timeOfModifyBill?: boolean
+    companyId?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -10339,20 +10671,24 @@ export namespace Prisma {
     modifiedDate?: boolean
     timeOfBill?: boolean
     timeOfModifyBill?: boolean
+    companyId?: boolean
   }
 
-  export type SalesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "prefix" | "billNo" | "suffix" | "date" | "customerId" | "itemId" | "qty" | "rate" | "taxPerc" | "taxAmount" | "srate" | "amount" | "userId" | "createdDate" | "modifiedUserId" | "modifiedDate" | "timeOfBill" | "timeOfModifyBill", ExtArgs["result"]["sales"]>
+  export type SalesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "prefix" | "billNo" | "suffix" | "date" | "customerId" | "itemId" | "qty" | "rate" | "taxPerc" | "taxAmount" | "srate" | "amount" | "userId" | "createdDate" | "modifiedUserId" | "modifiedDate" | "timeOfBill" | "timeOfModifyBill" | "companyId", ExtArgs["result"]["sales"]>
   export type SalesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type SalesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type SalesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -10361,6 +10697,7 @@ export namespace Prisma {
   export type $SalesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Sales"
     objects: {
+      company: Prisma.$CompanyPayload<ExtArgs>
       customer: Prisma.$CustomerPayload<ExtArgs>
       product: Prisma.$ProductPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
@@ -10385,6 +10722,7 @@ export namespace Prisma {
       modifiedDate: Date | null
       timeOfBill: Date | null
       timeOfModifyBill: Date | null
+      companyId: number
     }, ExtArgs["result"]["sales"]>
     composites: {}
   }
@@ -10779,6 +11117,7 @@ export namespace Prisma {
    */
   export interface Prisma__SalesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -10830,6 +11169,7 @@ export namespace Prisma {
     readonly modifiedDate: FieldRef<"Sales", 'DateTime'>
     readonly timeOfBill: FieldRef<"Sales", 'DateTime'>
     readonly timeOfModifyBill: FieldRef<"Sales", 'DateTime'>
+    readonly companyId: FieldRef<"Sales", 'Int'>
   }
     
 
@@ -12328,7 +12668,8 @@ export namespace Prisma {
 
   export const CategoryScalarFieldEnum: {
     id: 'id',
-    category: 'category'
+    category: 'category',
+    companyId: 'companyId'
   };
 
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
@@ -12337,7 +12678,8 @@ export namespace Prisma {
   export const UnitScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    decimalNOs: 'decimalNOs'
+    decimalNOs: 'decimalNOs',
+    companyId: 'companyId'
   };
 
   export type UnitScalarFieldEnum = (typeof UnitScalarFieldEnum)[keyof typeof UnitScalarFieldEnum]
@@ -12346,7 +12688,8 @@ export namespace Prisma {
   export const TaxScalarFieldEnum: {
     id: 'id',
     taxName: 'taxName',
-    percentage: 'percentage'
+    percentage: 'percentage',
+    companyId: 'companyId'
   };
 
   export type TaxScalarFieldEnum = (typeof TaxScalarFieldEnum)[keyof typeof TaxScalarFieldEnum]
@@ -12370,7 +12713,8 @@ export namespace Prisma {
     createdDate: 'createdDate',
     modifiedDate: 'modifiedDate',
     modifiedUserId: 'modifiedUserId',
-    imageSaveInLocation: 'imageSaveInLocation'
+    imageSaveInLocation: 'imageSaveInLocation',
+    companyId: 'companyId'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -12409,7 +12753,8 @@ export namespace Prisma {
     modifiedUserId: 'modifiedUserId',
     modifiedDate: 'modifiedDate',
     timeOfBill: 'timeOfBill',
-    timeOfModifyBill: 'timeOfModifyBill'
+    timeOfModifyBill: 'timeOfModifyBill',
+    companyId: 'companyId'
   };
 
   export type SalesScalarFieldEnum = (typeof SalesScalarFieldEnum)[keyof typeof SalesScalarFieldEnum]
@@ -12549,6 +12894,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Company"> | Date | string
     status?: StringFilter<"Company"> | string
     users?: UserListRelationFilter
+    categories?: CategoryListRelationFilter
+    units?: UnitListRelationFilter
+    taxes?: TaxListRelationFilter
+    products?: ProductListRelationFilter
+    sales?: SalesListRelationFilter
   }
 
   export type CompanyOrderByWithRelationInput = {
@@ -12561,6 +12911,11 @@ export namespace Prisma {
     createdAt?: SortOrder
     status?: SortOrder
     users?: UserOrderByRelationAggregateInput
+    categories?: CategoryOrderByRelationAggregateInput
+    units?: UnitOrderByRelationAggregateInput
+    taxes?: TaxOrderByRelationAggregateInput
+    products?: ProductOrderByRelationAggregateInput
+    sales?: SalesOrderByRelationAggregateInput
   }
 
   export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -12576,6 +12931,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Company"> | Date | string
     status?: StringFilter<"Company"> | string
     users?: UserListRelationFilter
+    categories?: CategoryListRelationFilter
+    units?: UnitListRelationFilter
+    taxes?: TaxListRelationFilter
+    products?: ProductListRelationFilter
+    sales?: SalesListRelationFilter
   }, "id" | "tenantId" | "adminEmail">
 
   export type CompanyOrderByWithAggregationInput = {
@@ -12685,12 +13045,16 @@ export namespace Prisma {
     NOT?: CategoryWhereInput | CategoryWhereInput[]
     id?: IntFilter<"Category"> | number
     category?: StringFilter<"Category"> | string
+    companyId?: IntFilter<"Category"> | number
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     products?: ProductListRelationFilter
   }
 
   export type CategoryOrderByWithRelationInput = {
     id?: SortOrder
     category?: SortOrder
+    companyId?: SortOrder
+    company?: CompanyOrderByWithRelationInput
     products?: ProductOrderByRelationAggregateInput
   }
 
@@ -12700,12 +13064,15 @@ export namespace Prisma {
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
     category?: StringFilter<"Category"> | string
+    companyId?: IntFilter<"Category"> | number
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     products?: ProductListRelationFilter
   }, "id">
 
   export type CategoryOrderByWithAggregationInput = {
     id?: SortOrder
     category?: SortOrder
+    companyId?: SortOrder
     _count?: CategoryCountOrderByAggregateInput
     _avg?: CategoryAvgOrderByAggregateInput
     _max?: CategoryMaxOrderByAggregateInput
@@ -12719,6 +13086,7 @@ export namespace Prisma {
     NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Category"> | number
     category?: StringWithAggregatesFilter<"Category"> | string
+    companyId?: IntWithAggregatesFilter<"Category"> | number
   }
 
   export type UnitWhereInput = {
@@ -12728,6 +13096,8 @@ export namespace Prisma {
     id?: IntFilter<"Unit"> | number
     name?: StringFilter<"Unit"> | string
     decimalNOs?: IntFilter<"Unit"> | number
+    companyId?: IntFilter<"Unit"> | number
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     products?: ProductListRelationFilter
   }
 
@@ -12735,6 +13105,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     decimalNOs?: SortOrder
+    companyId?: SortOrder
+    company?: CompanyOrderByWithRelationInput
     products?: ProductOrderByRelationAggregateInput
   }
 
@@ -12745,6 +13117,8 @@ export namespace Prisma {
     NOT?: UnitWhereInput | UnitWhereInput[]
     name?: StringFilter<"Unit"> | string
     decimalNOs?: IntFilter<"Unit"> | number
+    companyId?: IntFilter<"Unit"> | number
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     products?: ProductListRelationFilter
   }, "id">
 
@@ -12752,6 +13126,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     decimalNOs?: SortOrder
+    companyId?: SortOrder
     _count?: UnitCountOrderByAggregateInput
     _avg?: UnitAvgOrderByAggregateInput
     _max?: UnitMaxOrderByAggregateInput
@@ -12766,6 +13141,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Unit"> | number
     name?: StringWithAggregatesFilter<"Unit"> | string
     decimalNOs?: IntWithAggregatesFilter<"Unit"> | number
+    companyId?: IntWithAggregatesFilter<"Unit"> | number
   }
 
   export type TaxWhereInput = {
@@ -12775,6 +13151,8 @@ export namespace Prisma {
     id?: IntFilter<"Tax"> | number
     taxName?: StringFilter<"Tax"> | string
     percentage?: DecimalFilter<"Tax"> | Decimal | DecimalJsLike | number | string
+    companyId?: IntFilter<"Tax"> | number
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     products?: ProductListRelationFilter
   }
 
@@ -12782,6 +13160,8 @@ export namespace Prisma {
     id?: SortOrder
     taxName?: SortOrder
     percentage?: SortOrder
+    companyId?: SortOrder
+    company?: CompanyOrderByWithRelationInput
     products?: ProductOrderByRelationAggregateInput
   }
 
@@ -12792,6 +13172,8 @@ export namespace Prisma {
     NOT?: TaxWhereInput | TaxWhereInput[]
     taxName?: StringFilter<"Tax"> | string
     percentage?: DecimalFilter<"Tax"> | Decimal | DecimalJsLike | number | string
+    companyId?: IntFilter<"Tax"> | number
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     products?: ProductListRelationFilter
   }, "id">
 
@@ -12799,6 +13181,7 @@ export namespace Prisma {
     id?: SortOrder
     taxName?: SortOrder
     percentage?: SortOrder
+    companyId?: SortOrder
     _count?: TaxCountOrderByAggregateInput
     _avg?: TaxAvgOrderByAggregateInput
     _max?: TaxMaxOrderByAggregateInput
@@ -12813,6 +13196,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Tax"> | number
     taxName?: StringWithAggregatesFilter<"Tax"> | string
     percentage?: DecimalWithAggregatesFilter<"Tax"> | Decimal | DecimalJsLike | number | string
+    companyId?: IntWithAggregatesFilter<"Tax"> | number
   }
 
   export type ProductWhereInput = {
@@ -12837,10 +13221,12 @@ export namespace Prisma {
     modifiedDate?: DateTimeNullableFilter<"Product"> | Date | string | null
     modifiedUserId?: IntNullableFilter<"Product"> | number | null
     imageSaveInLocation?: StringNullableFilter<"Product"> | string | null
+    companyId?: IntFilter<"Product"> | number
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
     tax?: XOR<TaxScalarRelationFilter, TaxWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     sales?: SalesListRelationFilter
   }
 
@@ -12863,10 +13249,12 @@ export namespace Prisma {
     modifiedDate?: SortOrderInput | SortOrder
     modifiedUserId?: SortOrderInput | SortOrder
     imageSaveInLocation?: SortOrderInput | SortOrder
+    companyId?: SortOrder
     category?: CategoryOrderByWithRelationInput
     unit?: UnitOrderByWithRelationInput
     tax?: TaxOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
+    company?: CompanyOrderByWithRelationInput
     sales?: SalesOrderByRelationAggregateInput
   }
 
@@ -12892,10 +13280,12 @@ export namespace Prisma {
     modifiedDate?: DateTimeNullableFilter<"Product"> | Date | string | null
     modifiedUserId?: IntNullableFilter<"Product"> | number | null
     imageSaveInLocation?: StringNullableFilter<"Product"> | string | null
+    companyId?: IntFilter<"Product"> | number
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
     tax?: XOR<TaxScalarRelationFilter, TaxWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     sales?: SalesListRelationFilter
   }, "id">
 
@@ -12918,6 +13308,7 @@ export namespace Prisma {
     modifiedDate?: SortOrderInput | SortOrder
     modifiedUserId?: SortOrderInput | SortOrder
     imageSaveInLocation?: SortOrderInput | SortOrder
+    companyId?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -12947,6 +13338,7 @@ export namespace Prisma {
     modifiedDate?: DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
     modifiedUserId?: IntNullableWithAggregatesFilter<"Product"> | number | null
     imageSaveInLocation?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    companyId?: IntWithAggregatesFilter<"Product"> | number
   }
 
   export type CustomerWhereInput = {
@@ -13047,6 +13439,8 @@ export namespace Prisma {
     modifiedDate?: DateTimeNullableFilter<"Sales"> | Date | string | null
     timeOfBill?: DateTimeNullableFilter<"Sales"> | Date | string | null
     timeOfModifyBill?: DateTimeNullableFilter<"Sales"> | Date | string | null
+    companyId?: IntFilter<"Sales"> | number
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -13072,6 +13466,8 @@ export namespace Prisma {
     modifiedDate?: SortOrderInput | SortOrder
     timeOfBill?: SortOrderInput | SortOrder
     timeOfModifyBill?: SortOrderInput | SortOrder
+    companyId?: SortOrder
+    company?: CompanyOrderByWithRelationInput
     customer?: CustomerOrderByWithRelationInput
     product?: ProductOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
@@ -13100,6 +13496,8 @@ export namespace Prisma {
     modifiedDate?: DateTimeNullableFilter<"Sales"> | Date | string | null
     timeOfBill?: DateTimeNullableFilter<"Sales"> | Date | string | null
     timeOfModifyBill?: DateTimeNullableFilter<"Sales"> | Date | string | null
+    companyId?: IntFilter<"Sales"> | number
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -13125,6 +13523,7 @@ export namespace Prisma {
     modifiedDate?: SortOrderInput | SortOrder
     timeOfBill?: SortOrderInput | SortOrder
     timeOfModifyBill?: SortOrderInput | SortOrder
+    companyId?: SortOrder
     _count?: SalesCountOrderByAggregateInput
     _avg?: SalesAvgOrderByAggregateInput
     _max?: SalesMaxOrderByAggregateInput
@@ -13155,6 +13554,7 @@ export namespace Prisma {
     modifiedDate?: DateTimeNullableWithAggregatesFilter<"Sales"> | Date | string | null
     timeOfBill?: DateTimeNullableWithAggregatesFilter<"Sales"> | Date | string | null
     timeOfModifyBill?: DateTimeNullableWithAggregatesFilter<"Sales"> | Date | string | null
+    companyId?: IntWithAggregatesFilter<"Sales"> | number
   }
 
   export type SuperAdminWhereInput = {
@@ -13225,6 +13625,11 @@ export namespace Prisma {
     createdAt?: Date | string
     status?: string
     users?: UserCreateNestedManyWithoutCompanyInput
+    categories?: CategoryCreateNestedManyWithoutCompanyInput
+    units?: UnitCreateNestedManyWithoutCompanyInput
+    taxes?: TaxCreateNestedManyWithoutCompanyInput
+    products?: ProductCreateNestedManyWithoutCompanyInput
+    sales?: SalesCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateInput = {
@@ -13237,6 +13642,11 @@ export namespace Prisma {
     createdAt?: Date | string
     status?: string
     users?: UserUncheckedCreateNestedManyWithoutCompanyInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
+    units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
+    taxes?: TaxUncheckedCreateNestedManyWithoutCompanyInput
+    products?: ProductUncheckedCreateNestedManyWithoutCompanyInput
+    sales?: SalesUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUpdateInput = {
@@ -13248,6 +13658,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     users?: UserUpdateManyWithoutCompanyNestedInput
+    categories?: CategoryUpdateManyWithoutCompanyNestedInput
+    units?: UnitUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUpdateManyWithoutCompanyNestedInput
+    products?: ProductUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateInput = {
@@ -13260,6 +13675,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
+    units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUncheckedUpdateManyWithoutCompanyNestedInput
+    products?: ProductUncheckedUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyCreateManyInput = {
@@ -13367,29 +13787,34 @@ export namespace Prisma {
 
   export type CategoryCreateInput = {
     category: string
+    company: CompanyCreateNestedOneWithoutCategoriesInput
     products?: ProductCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUncheckedCreateInput = {
     id?: number
     category: string
+    companyId: number
     products?: ProductUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUpdateInput = {
     category?: StringFieldUpdateOperationsInput | string
+    company?: CompanyUpdateOneRequiredWithoutCategoriesNestedInput
     products?: ProductUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    companyId?: IntFieldUpdateOperationsInput | number
     products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryCreateManyInput = {
     id?: number
     category: string
+    companyId: number
   }
 
   export type CategoryUpdateManyMutationInput = {
@@ -13399,11 +13824,13 @@ export namespace Prisma {
   export type CategoryUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type UnitCreateInput = {
     name: string
     decimalNOs: number
+    company: CompanyCreateNestedOneWithoutUnitsInput
     products?: ProductCreateNestedManyWithoutUnitInput
   }
 
@@ -13411,12 +13838,14 @@ export namespace Prisma {
     id?: number
     name: string
     decimalNOs: number
+    companyId: number
     products?: ProductUncheckedCreateNestedManyWithoutUnitInput
   }
 
   export type UnitUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     decimalNOs?: IntFieldUpdateOperationsInput | number
+    company?: CompanyUpdateOneRequiredWithoutUnitsNestedInput
     products?: ProductUpdateManyWithoutUnitNestedInput
   }
 
@@ -13424,6 +13853,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     decimalNOs?: IntFieldUpdateOperationsInput | number
+    companyId?: IntFieldUpdateOperationsInput | number
     products?: ProductUncheckedUpdateManyWithoutUnitNestedInput
   }
 
@@ -13431,6 +13861,7 @@ export namespace Prisma {
     id?: number
     name: string
     decimalNOs: number
+    companyId: number
   }
 
   export type UnitUpdateManyMutationInput = {
@@ -13442,11 +13873,13 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     decimalNOs?: IntFieldUpdateOperationsInput | number
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type TaxCreateInput = {
     taxName: string
     percentage: Decimal | DecimalJsLike | number | string
+    company: CompanyCreateNestedOneWithoutTaxesInput
     products?: ProductCreateNestedManyWithoutTaxInput
   }
 
@@ -13454,12 +13887,14 @@ export namespace Prisma {
     id?: number
     taxName: string
     percentage: Decimal | DecimalJsLike | number | string
+    companyId: number
     products?: ProductUncheckedCreateNestedManyWithoutTaxInput
   }
 
   export type TaxUpdateInput = {
     taxName?: StringFieldUpdateOperationsInput | string
     percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    company?: CompanyUpdateOneRequiredWithoutTaxesNestedInput
     products?: ProductUpdateManyWithoutTaxNestedInput
   }
 
@@ -13467,6 +13902,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     taxName?: StringFieldUpdateOperationsInput | string
     percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    companyId?: IntFieldUpdateOperationsInput | number
     products?: ProductUncheckedUpdateManyWithoutTaxNestedInput
   }
 
@@ -13474,6 +13910,7 @@ export namespace Prisma {
     id?: number
     taxName: string
     percentage: Decimal | DecimalJsLike | number | string
+    companyId: number
   }
 
   export type TaxUpdateManyMutationInput = {
@@ -13485,6 +13922,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     taxName?: StringFieldUpdateOperationsInput | string
     percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductCreateInput = {
@@ -13505,6 +13943,7 @@ export namespace Prisma {
     unit: UnitCreateNestedOneWithoutProductsInput
     tax: TaxCreateNestedOneWithoutProductsInput
     user: UserCreateNestedOneWithoutProductsInput
+    company: CompanyCreateNestedOneWithoutProductsInput
     sales?: SalesCreateNestedManyWithoutProductInput
   }
 
@@ -13527,6 +13966,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
     sales?: SalesUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -13548,6 +13988,7 @@ export namespace Prisma {
     unit?: UnitUpdateOneRequiredWithoutProductsNestedInput
     tax?: TaxUpdateOneRequiredWithoutProductsNestedInput
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
+    company?: CompanyUpdateOneRequiredWithoutProductsNestedInput
     sales?: SalesUpdateManyWithoutProductNestedInput
   }
 
@@ -13570,6 +14011,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
     sales?: SalesUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -13592,6 +14034,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -13629,6 +14072,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type CustomerCreateInput = {
@@ -13724,6 +14168,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    company: CompanyCreateNestedOneWithoutSalesInput
     customer: CustomerCreateNestedOneWithoutSalesInput
     product: ProductCreateNestedOneWithoutSalesInput
     user: UserCreateNestedOneWithoutSalesInput
@@ -13749,6 +14194,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    companyId: number
   }
 
   export type SalesUpdateInput = {
@@ -13767,6 +14213,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    company?: CompanyUpdateOneRequiredWithoutSalesNestedInput
     customer?: CustomerUpdateOneRequiredWithoutSalesNestedInput
     product?: ProductUpdateOneRequiredWithoutSalesNestedInput
     user?: UserUpdateOneRequiredWithoutSalesNestedInput
@@ -13792,6 +14239,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type SalesCreateManyInput = {
@@ -13814,6 +14262,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    companyId: number
   }
 
   export type SalesUpdateManyMutationInput = {
@@ -13854,6 +14303,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type SuperAdminCreateInput = {
@@ -13959,7 +14409,57 @@ export namespace Prisma {
     none?: UserWhereInput
   }
 
+  export type CategoryListRelationFilter = {
+    every?: CategoryWhereInput
+    some?: CategoryWhereInput
+    none?: CategoryWhereInput
+  }
+
+  export type UnitListRelationFilter = {
+    every?: UnitWhereInput
+    some?: UnitWhereInput
+    none?: UnitWhereInput
+  }
+
+  export type TaxListRelationFilter = {
+    every?: TaxWhereInput
+    some?: TaxWhereInput
+    none?: TaxWhereInput
+  }
+
+  export type ProductListRelationFilter = {
+    every?: ProductWhereInput
+    some?: ProductWhereInput
+    none?: ProductWhereInput
+  }
+
+  export type SalesListRelationFilter = {
+    every?: SalesWhereInput
+    some?: SalesWhereInput
+    none?: SalesWhereInput
+  }
+
   export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CategoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UnitOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TaxOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProductOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SalesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14057,33 +14557,13 @@ export namespace Prisma {
     isNot?: CompanyWhereInput
   }
 
-  export type ProductListRelationFilter = {
-    every?: ProductWhereInput
-    some?: ProductWhereInput
-    none?: ProductWhereInput
-  }
-
   export type CustomerListRelationFilter = {
     every?: CustomerWhereInput
     some?: CustomerWhereInput
     none?: CustomerWhereInput
   }
 
-  export type SalesListRelationFilter = {
-    every?: SalesWhereInput
-    some?: SalesWhereInput
-    none?: SalesWhereInput
-  }
-
-  export type ProductOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type CustomerOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type SalesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14127,52 +14607,62 @@ export namespace Prisma {
   export type CategoryCountOrderByAggregateInput = {
     id?: SortOrder
     category?: SortOrder
+    companyId?: SortOrder
   }
 
   export type CategoryAvgOrderByAggregateInput = {
     id?: SortOrder
+    companyId?: SortOrder
   }
 
   export type CategoryMaxOrderByAggregateInput = {
     id?: SortOrder
     category?: SortOrder
+    companyId?: SortOrder
   }
 
   export type CategoryMinOrderByAggregateInput = {
     id?: SortOrder
     category?: SortOrder
+    companyId?: SortOrder
   }
 
   export type CategorySumOrderByAggregateInput = {
     id?: SortOrder
+    companyId?: SortOrder
   }
 
   export type UnitCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     decimalNOs?: SortOrder
+    companyId?: SortOrder
   }
 
   export type UnitAvgOrderByAggregateInput = {
     id?: SortOrder
     decimalNOs?: SortOrder
+    companyId?: SortOrder
   }
 
   export type UnitMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     decimalNOs?: SortOrder
+    companyId?: SortOrder
   }
 
   export type UnitMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     decimalNOs?: SortOrder
+    companyId?: SortOrder
   }
 
   export type UnitSumOrderByAggregateInput = {
     id?: SortOrder
     decimalNOs?: SortOrder
+    companyId?: SortOrder
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -14190,28 +14680,33 @@ export namespace Prisma {
     id?: SortOrder
     taxName?: SortOrder
     percentage?: SortOrder
+    companyId?: SortOrder
   }
 
   export type TaxAvgOrderByAggregateInput = {
     id?: SortOrder
     percentage?: SortOrder
+    companyId?: SortOrder
   }
 
   export type TaxMaxOrderByAggregateInput = {
     id?: SortOrder
     taxName?: SortOrder
     percentage?: SortOrder
+    companyId?: SortOrder
   }
 
   export type TaxMinOrderByAggregateInput = {
     id?: SortOrder
     taxName?: SortOrder
     percentage?: SortOrder
+    companyId?: SortOrder
   }
 
   export type TaxSumOrderByAggregateInput = {
     id?: SortOrder
     percentage?: SortOrder
+    companyId?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -14316,6 +14811,7 @@ export namespace Prisma {
     modifiedDate?: SortOrder
     modifiedUserId?: SortOrder
     imageSaveInLocation?: SortOrder
+    companyId?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
@@ -14328,6 +14824,7 @@ export namespace Prisma {
     mrp?: SortOrder
     userId?: SortOrder
     modifiedUserId?: SortOrder
+    companyId?: SortOrder
   }
 
   export type ProductMaxOrderByAggregateInput = {
@@ -14349,6 +14846,7 @@ export namespace Prisma {
     modifiedDate?: SortOrder
     modifiedUserId?: SortOrder
     imageSaveInLocation?: SortOrder
+    companyId?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -14370,6 +14868,7 @@ export namespace Prisma {
     modifiedDate?: SortOrder
     modifiedUserId?: SortOrder
     imageSaveInLocation?: SortOrder
+    companyId?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
@@ -14382,6 +14881,7 @@ export namespace Prisma {
     mrp?: SortOrder
     userId?: SortOrder
     modifiedUserId?: SortOrder
+    companyId?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14515,6 +15015,7 @@ export namespace Prisma {
     modifiedDate?: SortOrder
     timeOfBill?: SortOrder
     timeOfModifyBill?: SortOrder
+    companyId?: SortOrder
   }
 
   export type SalesAvgOrderByAggregateInput = {
@@ -14529,6 +15030,7 @@ export namespace Prisma {
     amount?: SortOrder
     userId?: SortOrder
     modifiedUserId?: SortOrder
+    companyId?: SortOrder
   }
 
   export type SalesMaxOrderByAggregateInput = {
@@ -14551,6 +15053,7 @@ export namespace Prisma {
     modifiedDate?: SortOrder
     timeOfBill?: SortOrder
     timeOfModifyBill?: SortOrder
+    companyId?: SortOrder
   }
 
   export type SalesMinOrderByAggregateInput = {
@@ -14573,6 +15076,7 @@ export namespace Prisma {
     modifiedDate?: SortOrder
     timeOfBill?: SortOrder
     timeOfModifyBill?: SortOrder
+    companyId?: SortOrder
   }
 
   export type SalesSumOrderByAggregateInput = {
@@ -14587,6 +15091,7 @@ export namespace Prisma {
     amount?: SortOrder
     userId?: SortOrder
     modifiedUserId?: SortOrder
+    companyId?: SortOrder
   }
 
   export type SuperAdminCountOrderByAggregateInput = {
@@ -14631,11 +15136,81 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type CategoryCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<CategoryCreateWithoutCompanyInput, CategoryUncheckedCreateWithoutCompanyInput> | CategoryCreateWithoutCompanyInput[] | CategoryUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: CategoryCreateOrConnectWithoutCompanyInput | CategoryCreateOrConnectWithoutCompanyInput[]
+    createMany?: CategoryCreateManyCompanyInputEnvelope
+    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+  }
+
+  export type UnitCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<UnitCreateWithoutCompanyInput, UnitUncheckedCreateWithoutCompanyInput> | UnitCreateWithoutCompanyInput[] | UnitUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UnitCreateOrConnectWithoutCompanyInput | UnitCreateOrConnectWithoutCompanyInput[]
+    createMany?: UnitCreateManyCompanyInputEnvelope
+    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  }
+
+  export type TaxCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<TaxCreateWithoutCompanyInput, TaxUncheckedCreateWithoutCompanyInput> | TaxCreateWithoutCompanyInput[] | TaxUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: TaxCreateOrConnectWithoutCompanyInput | TaxCreateOrConnectWithoutCompanyInput[]
+    createMany?: TaxCreateManyCompanyInputEnvelope
+    connect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+  }
+
+  export type ProductCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<ProductCreateWithoutCompanyInput, ProductUncheckedCreateWithoutCompanyInput> | ProductCreateWithoutCompanyInput[] | ProductUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCompanyInput | ProductCreateOrConnectWithoutCompanyInput[]
+    createMany?: ProductCreateManyCompanyInputEnvelope
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
+  export type SalesCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<SalesCreateWithoutCompanyInput, SalesUncheckedCreateWithoutCompanyInput> | SalesCreateWithoutCompanyInput[] | SalesUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: SalesCreateOrConnectWithoutCompanyInput | SalesCreateOrConnectWithoutCompanyInput[]
+    createMany?: SalesCreateManyCompanyInputEnvelope
+    connect?: SalesWhereUniqueInput | SalesWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutCompanyInput = {
     create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput> | UserCreateWithoutCompanyInput[] | UserUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCompanyInput | UserCreateOrConnectWithoutCompanyInput[]
     createMany?: UserCreateManyCompanyInputEnvelope
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type CategoryUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<CategoryCreateWithoutCompanyInput, CategoryUncheckedCreateWithoutCompanyInput> | CategoryCreateWithoutCompanyInput[] | CategoryUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: CategoryCreateOrConnectWithoutCompanyInput | CategoryCreateOrConnectWithoutCompanyInput[]
+    createMany?: CategoryCreateManyCompanyInputEnvelope
+    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+  }
+
+  export type UnitUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<UnitCreateWithoutCompanyInput, UnitUncheckedCreateWithoutCompanyInput> | UnitCreateWithoutCompanyInput[] | UnitUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UnitCreateOrConnectWithoutCompanyInput | UnitCreateOrConnectWithoutCompanyInput[]
+    createMany?: UnitCreateManyCompanyInputEnvelope
+    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  }
+
+  export type TaxUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<TaxCreateWithoutCompanyInput, TaxUncheckedCreateWithoutCompanyInput> | TaxCreateWithoutCompanyInput[] | TaxUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: TaxCreateOrConnectWithoutCompanyInput | TaxCreateOrConnectWithoutCompanyInput[]
+    createMany?: TaxCreateManyCompanyInputEnvelope
+    connect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+  }
+
+  export type ProductUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<ProductCreateWithoutCompanyInput, ProductUncheckedCreateWithoutCompanyInput> | ProductCreateWithoutCompanyInput[] | ProductUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCompanyInput | ProductCreateOrConnectWithoutCompanyInput[]
+    createMany?: ProductCreateManyCompanyInputEnvelope
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
+  export type SalesUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<SalesCreateWithoutCompanyInput, SalesUncheckedCreateWithoutCompanyInput> | SalesCreateWithoutCompanyInput[] | SalesUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: SalesCreateOrConnectWithoutCompanyInput | SalesCreateOrConnectWithoutCompanyInput[]
+    createMany?: SalesCreateManyCompanyInputEnvelope
+    connect?: SalesWhereUniqueInput | SalesWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -14660,6 +15235,76 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type CategoryUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<CategoryCreateWithoutCompanyInput, CategoryUncheckedCreateWithoutCompanyInput> | CategoryCreateWithoutCompanyInput[] | CategoryUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: CategoryCreateOrConnectWithoutCompanyInput | CategoryCreateOrConnectWithoutCompanyInput[]
+    upsert?: CategoryUpsertWithWhereUniqueWithoutCompanyInput | CategoryUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: CategoryCreateManyCompanyInputEnvelope
+    set?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    disconnect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    delete?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    update?: CategoryUpdateWithWhereUniqueWithoutCompanyInput | CategoryUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: CategoryUpdateManyWithWhereWithoutCompanyInput | CategoryUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
+  }
+
+  export type UnitUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<UnitCreateWithoutCompanyInput, UnitUncheckedCreateWithoutCompanyInput> | UnitCreateWithoutCompanyInput[] | UnitUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UnitCreateOrConnectWithoutCompanyInput | UnitCreateOrConnectWithoutCompanyInput[]
+    upsert?: UnitUpsertWithWhereUniqueWithoutCompanyInput | UnitUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: UnitCreateManyCompanyInputEnvelope
+    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+    update?: UnitUpdateWithWhereUniqueWithoutCompanyInput | UnitUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: UnitUpdateManyWithWhereWithoutCompanyInput | UnitUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  }
+
+  export type TaxUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<TaxCreateWithoutCompanyInput, TaxUncheckedCreateWithoutCompanyInput> | TaxCreateWithoutCompanyInput[] | TaxUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: TaxCreateOrConnectWithoutCompanyInput | TaxCreateOrConnectWithoutCompanyInput[]
+    upsert?: TaxUpsertWithWhereUniqueWithoutCompanyInput | TaxUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: TaxCreateManyCompanyInputEnvelope
+    set?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    disconnect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    delete?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    connect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    update?: TaxUpdateWithWhereUniqueWithoutCompanyInput | TaxUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: TaxUpdateManyWithWhereWithoutCompanyInput | TaxUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: TaxScalarWhereInput | TaxScalarWhereInput[]
+  }
+
+  export type ProductUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<ProductCreateWithoutCompanyInput, ProductUncheckedCreateWithoutCompanyInput> | ProductCreateWithoutCompanyInput[] | ProductUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCompanyInput | ProductCreateOrConnectWithoutCompanyInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutCompanyInput | ProductUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: ProductCreateManyCompanyInputEnvelope
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutCompanyInput | ProductUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutCompanyInput | ProductUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
+  }
+
+  export type SalesUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<SalesCreateWithoutCompanyInput, SalesUncheckedCreateWithoutCompanyInput> | SalesCreateWithoutCompanyInput[] | SalesUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: SalesCreateOrConnectWithoutCompanyInput | SalesCreateOrConnectWithoutCompanyInput[]
+    upsert?: SalesUpsertWithWhereUniqueWithoutCompanyInput | SalesUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: SalesCreateManyCompanyInputEnvelope
+    set?: SalesWhereUniqueInput | SalesWhereUniqueInput[]
+    disconnect?: SalesWhereUniqueInput | SalesWhereUniqueInput[]
+    delete?: SalesWhereUniqueInput | SalesWhereUniqueInput[]
+    connect?: SalesWhereUniqueInput | SalesWhereUniqueInput[]
+    update?: SalesUpdateWithWhereUniqueWithoutCompanyInput | SalesUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: SalesUpdateManyWithWhereWithoutCompanyInput | SalesUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: SalesScalarWhereInput | SalesScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -14680,6 +15325,76 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutCompanyInput | UserUpdateWithWhereUniqueWithoutCompanyInput[]
     updateMany?: UserUpdateManyWithWhereWithoutCompanyInput | UserUpdateManyWithWhereWithoutCompanyInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type CategoryUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<CategoryCreateWithoutCompanyInput, CategoryUncheckedCreateWithoutCompanyInput> | CategoryCreateWithoutCompanyInput[] | CategoryUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: CategoryCreateOrConnectWithoutCompanyInput | CategoryCreateOrConnectWithoutCompanyInput[]
+    upsert?: CategoryUpsertWithWhereUniqueWithoutCompanyInput | CategoryUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: CategoryCreateManyCompanyInputEnvelope
+    set?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    disconnect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    delete?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    update?: CategoryUpdateWithWhereUniqueWithoutCompanyInput | CategoryUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: CategoryUpdateManyWithWhereWithoutCompanyInput | CategoryUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
+  }
+
+  export type UnitUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<UnitCreateWithoutCompanyInput, UnitUncheckedCreateWithoutCompanyInput> | UnitCreateWithoutCompanyInput[] | UnitUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UnitCreateOrConnectWithoutCompanyInput | UnitCreateOrConnectWithoutCompanyInput[]
+    upsert?: UnitUpsertWithWhereUniqueWithoutCompanyInput | UnitUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: UnitCreateManyCompanyInputEnvelope
+    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+    update?: UnitUpdateWithWhereUniqueWithoutCompanyInput | UnitUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: UnitUpdateManyWithWhereWithoutCompanyInput | UnitUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  }
+
+  export type TaxUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<TaxCreateWithoutCompanyInput, TaxUncheckedCreateWithoutCompanyInput> | TaxCreateWithoutCompanyInput[] | TaxUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: TaxCreateOrConnectWithoutCompanyInput | TaxCreateOrConnectWithoutCompanyInput[]
+    upsert?: TaxUpsertWithWhereUniqueWithoutCompanyInput | TaxUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: TaxCreateManyCompanyInputEnvelope
+    set?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    disconnect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    delete?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    connect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    update?: TaxUpdateWithWhereUniqueWithoutCompanyInput | TaxUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: TaxUpdateManyWithWhereWithoutCompanyInput | TaxUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: TaxScalarWhereInput | TaxScalarWhereInput[]
+  }
+
+  export type ProductUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<ProductCreateWithoutCompanyInput, ProductUncheckedCreateWithoutCompanyInput> | ProductCreateWithoutCompanyInput[] | ProductUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCompanyInput | ProductCreateOrConnectWithoutCompanyInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutCompanyInput | ProductUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: ProductCreateManyCompanyInputEnvelope
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutCompanyInput | ProductUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutCompanyInput | ProductUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
+  }
+
+  export type SalesUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<SalesCreateWithoutCompanyInput, SalesUncheckedCreateWithoutCompanyInput> | SalesCreateWithoutCompanyInput[] | SalesUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: SalesCreateOrConnectWithoutCompanyInput | SalesCreateOrConnectWithoutCompanyInput[]
+    upsert?: SalesUpsertWithWhereUniqueWithoutCompanyInput | SalesUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: SalesCreateManyCompanyInputEnvelope
+    set?: SalesWhereUniqueInput | SalesWhereUniqueInput[]
+    disconnect?: SalesWhereUniqueInput | SalesWhereUniqueInput[]
+    delete?: SalesWhereUniqueInput | SalesWhereUniqueInput[]
+    connect?: SalesWhereUniqueInput | SalesWhereUniqueInput[]
+    update?: SalesUpdateWithWhereUniqueWithoutCompanyInput | SalesUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: SalesUpdateManyWithWhereWithoutCompanyInput | SalesUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: SalesScalarWhereInput | SalesScalarWhereInput[]
   }
 
   export type CompanyCreateNestedOneWithoutUsersInput = {
@@ -14822,6 +15537,12 @@ export namespace Prisma {
     deleteMany?: SalesScalarWhereInput | SalesScalarWhereInput[]
   }
 
+  export type CompanyCreateNestedOneWithoutCategoriesInput = {
+    create?: XOR<CompanyCreateWithoutCategoriesInput, CompanyUncheckedCreateWithoutCategoriesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutCategoriesInput
+    connect?: CompanyWhereUniqueInput
+  }
+
   export type ProductCreateNestedManyWithoutCategoryInput = {
     create?: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput> | ProductCreateWithoutCategoryInput[] | ProductUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
@@ -14834,6 +15555,14 @@ export namespace Prisma {
     connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
     createMany?: ProductCreateManyCategoryInputEnvelope
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
+  export type CompanyUpdateOneRequiredWithoutCategoriesNestedInput = {
+    create?: XOR<CompanyCreateWithoutCategoriesInput, CompanyUncheckedCreateWithoutCategoriesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutCategoriesInput
+    upsert?: CompanyUpsertWithoutCategoriesInput
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutCategoriesInput, CompanyUpdateWithoutCategoriesInput>, CompanyUncheckedUpdateWithoutCategoriesInput>
   }
 
   export type ProductUpdateManyWithoutCategoryNestedInput = {
@@ -14864,6 +15593,12 @@ export namespace Prisma {
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
+  export type CompanyCreateNestedOneWithoutUnitsInput = {
+    create?: XOR<CompanyCreateWithoutUnitsInput, CompanyUncheckedCreateWithoutUnitsInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutUnitsInput
+    connect?: CompanyWhereUniqueInput
+  }
+
   export type ProductCreateNestedManyWithoutUnitInput = {
     create?: XOR<ProductCreateWithoutUnitInput, ProductUncheckedCreateWithoutUnitInput> | ProductCreateWithoutUnitInput[] | ProductUncheckedCreateWithoutUnitInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutUnitInput | ProductCreateOrConnectWithoutUnitInput[]
@@ -14876,6 +15611,14 @@ export namespace Prisma {
     connectOrCreate?: ProductCreateOrConnectWithoutUnitInput | ProductCreateOrConnectWithoutUnitInput[]
     createMany?: ProductCreateManyUnitInputEnvelope
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
+  export type CompanyUpdateOneRequiredWithoutUnitsNestedInput = {
+    create?: XOR<CompanyCreateWithoutUnitsInput, CompanyUncheckedCreateWithoutUnitsInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutUnitsInput
+    upsert?: CompanyUpsertWithoutUnitsInput
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUnitsInput, CompanyUpdateWithoutUnitsInput>, CompanyUncheckedUpdateWithoutUnitsInput>
   }
 
   export type ProductUpdateManyWithoutUnitNestedInput = {
@@ -14906,6 +15649,12 @@ export namespace Prisma {
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
+  export type CompanyCreateNestedOneWithoutTaxesInput = {
+    create?: XOR<CompanyCreateWithoutTaxesInput, CompanyUncheckedCreateWithoutTaxesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutTaxesInput
+    connect?: CompanyWhereUniqueInput
+  }
+
   export type ProductCreateNestedManyWithoutTaxInput = {
     create?: XOR<ProductCreateWithoutTaxInput, ProductUncheckedCreateWithoutTaxInput> | ProductCreateWithoutTaxInput[] | ProductUncheckedCreateWithoutTaxInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutTaxInput | ProductCreateOrConnectWithoutTaxInput[]
@@ -14926,6 +15675,14 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type CompanyUpdateOneRequiredWithoutTaxesNestedInput = {
+    create?: XOR<CompanyCreateWithoutTaxesInput, CompanyUncheckedCreateWithoutTaxesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutTaxesInput
+    upsert?: CompanyUpsertWithoutTaxesInput
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutTaxesInput, CompanyUpdateWithoutTaxesInput>, CompanyUncheckedUpdateWithoutTaxesInput>
   }
 
   export type ProductUpdateManyWithoutTaxNestedInput = {
@@ -14978,6 +15735,12 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutProductsInput, UserUncheckedCreateWithoutProductsInput>
     connectOrCreate?: UserCreateOrConnectWithoutProductsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type CompanyCreateNestedOneWithoutProductsInput = {
+    create?: XOR<CompanyCreateWithoutProductsInput, CompanyUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutProductsInput
+    connect?: CompanyWhereUniqueInput
   }
 
   export type SalesCreateNestedManyWithoutProductInput = {
@@ -15044,6 +15807,14 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutProductsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProductsInput, UserUpdateWithoutProductsInput>, UserUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type CompanyUpdateOneRequiredWithoutProductsNestedInput = {
+    create?: XOR<CompanyCreateWithoutProductsInput, CompanyUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutProductsInput
+    upsert?: CompanyUpsertWithoutProductsInput
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutProductsInput, CompanyUpdateWithoutProductsInput>, CompanyUncheckedUpdateWithoutProductsInput>
   }
 
   export type SalesUpdateManyWithoutProductNestedInput = {
@@ -15130,6 +15901,12 @@ export namespace Prisma {
     deleteMany?: SalesScalarWhereInput | SalesScalarWhereInput[]
   }
 
+  export type CompanyCreateNestedOneWithoutSalesInput = {
+    create?: XOR<CompanyCreateWithoutSalesInput, CompanyUncheckedCreateWithoutSalesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutSalesInput
+    connect?: CompanyWhereUniqueInput
+  }
+
   export type CustomerCreateNestedOneWithoutSalesInput = {
     create?: XOR<CustomerCreateWithoutSalesInput, CustomerUncheckedCreateWithoutSalesInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutSalesInput
@@ -15146,6 +15923,14 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutSalesInput, UserUncheckedCreateWithoutSalesInput>
     connectOrCreate?: UserCreateOrConnectWithoutSalesInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type CompanyUpdateOneRequiredWithoutSalesNestedInput = {
+    create?: XOR<CompanyCreateWithoutSalesInput, CompanyUncheckedCreateWithoutSalesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutSalesInput
+    upsert?: CompanyUpsertWithoutSalesInput
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutSalesInput, CompanyUpdateWithoutSalesInput>, CompanyUncheckedUpdateWithoutSalesInput>
   }
 
   export type CustomerUpdateOneRequiredWithoutSalesNestedInput = {
@@ -15431,6 +16216,179 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CategoryCreateWithoutCompanyInput = {
+    category: string
+    products?: ProductCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUncheckedCreateWithoutCompanyInput = {
+    id?: number
+    category: string
+    products?: ProductUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryCreateOrConnectWithoutCompanyInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutCompanyInput, CategoryUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type CategoryCreateManyCompanyInputEnvelope = {
+    data: CategoryCreateManyCompanyInput | CategoryCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UnitCreateWithoutCompanyInput = {
+    name: string
+    decimalNOs: number
+    products?: ProductCreateNestedManyWithoutUnitInput
+  }
+
+  export type UnitUncheckedCreateWithoutCompanyInput = {
+    id?: number
+    name: string
+    decimalNOs: number
+    products?: ProductUncheckedCreateNestedManyWithoutUnitInput
+  }
+
+  export type UnitCreateOrConnectWithoutCompanyInput = {
+    where: UnitWhereUniqueInput
+    create: XOR<UnitCreateWithoutCompanyInput, UnitUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type UnitCreateManyCompanyInputEnvelope = {
+    data: UnitCreateManyCompanyInput | UnitCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TaxCreateWithoutCompanyInput = {
+    taxName: string
+    percentage: Decimal | DecimalJsLike | number | string
+    products?: ProductCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxUncheckedCreateWithoutCompanyInput = {
+    id?: number
+    taxName: string
+    percentage: Decimal | DecimalJsLike | number | string
+    products?: ProductUncheckedCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxCreateOrConnectWithoutCompanyInput = {
+    where: TaxWhereUniqueInput
+    create: XOR<TaxCreateWithoutCompanyInput, TaxUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type TaxCreateManyCompanyInputEnvelope = {
+    data: TaxCreateManyCompanyInput | TaxCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProductCreateWithoutCompanyInput = {
+    itemCode: string
+    itemName: string
+    shortCode?: string | null
+    printName?: string | null
+    hsnCode?: string | null
+    prate: Decimal | DecimalJsLike | number | string
+    srate: Decimal | DecimalJsLike | number | string
+    mrp: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    createdDate?: Date | string
+    modifiedDate?: Date | string | null
+    modifiedUserId?: number | null
+    imageSaveInLocation?: string | null
+    category: CategoryCreateNestedOneWithoutProductsInput
+    unit: UnitCreateNestedOneWithoutProductsInput
+    tax: TaxCreateNestedOneWithoutProductsInput
+    user: UserCreateNestedOneWithoutProductsInput
+    sales?: SalesCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutCompanyInput = {
+    id?: number
+    itemCode: string
+    itemName: string
+    shortCode?: string | null
+    printName?: string | null
+    hsnCode?: string | null
+    categoryId: number
+    unitId: number
+    taxId: number
+    prate: Decimal | DecimalJsLike | number | string
+    srate: Decimal | DecimalJsLike | number | string
+    mrp: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    userId: number
+    createdDate?: Date | string
+    modifiedDate?: Date | string | null
+    modifiedUserId?: number | null
+    imageSaveInLocation?: string | null
+    sales?: SalesUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutCompanyInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutCompanyInput, ProductUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type ProductCreateManyCompanyInputEnvelope = {
+    data: ProductCreateManyCompanyInput | ProductCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SalesCreateWithoutCompanyInput = {
+    prefix?: string | null
+    billNo: string
+    suffix?: string | null
+    date: Date | string
+    qty: number
+    rate: Decimal | DecimalJsLike | number | string
+    taxPerc: Decimal | DecimalJsLike | number | string
+    taxAmount: Decimal | DecimalJsLike | number | string
+    srate: Decimal | DecimalJsLike | number | string
+    amount: Decimal | DecimalJsLike | number | string
+    createdDate?: Date | string
+    modifiedUserId?: number | null
+    modifiedDate?: Date | string | null
+    timeOfBill?: Date | string | null
+    timeOfModifyBill?: Date | string | null
+    customer: CustomerCreateNestedOneWithoutSalesInput
+    product: ProductCreateNestedOneWithoutSalesInput
+    user: UserCreateNestedOneWithoutSalesInput
+  }
+
+  export type SalesUncheckedCreateWithoutCompanyInput = {
+    id?: number
+    prefix?: string | null
+    billNo: string
+    suffix?: string | null
+    date: Date | string
+    customerId: number
+    itemId: number
+    qty: number
+    rate: Decimal | DecimalJsLike | number | string
+    taxPerc: Decimal | DecimalJsLike | number | string
+    taxAmount: Decimal | DecimalJsLike | number | string
+    srate: Decimal | DecimalJsLike | number | string
+    amount: Decimal | DecimalJsLike | number | string
+    userId: number
+    createdDate?: Date | string
+    modifiedUserId?: number | null
+    modifiedDate?: Date | string | null
+    timeOfBill?: Date | string | null
+    timeOfModifyBill?: Date | string | null
+  }
+
+  export type SalesCreateOrConnectWithoutCompanyInput = {
+    where: SalesWhereUniqueInput
+    create: XOR<SalesCreateWithoutCompanyInput, SalesUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type SalesCreateManyCompanyInputEnvelope = {
+    data: SalesCreateManyCompanyInput | SalesCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutCompanyInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutCompanyInput, UserUncheckedUpdateWithoutCompanyInput>
@@ -15459,6 +16417,166 @@ export namespace Prisma {
     companyId?: IntFilter<"User"> | number
   }
 
+  export type CategoryUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: CategoryWhereUniqueInput
+    update: XOR<CategoryUpdateWithoutCompanyInput, CategoryUncheckedUpdateWithoutCompanyInput>
+    create: XOR<CategoryCreateWithoutCompanyInput, CategoryUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type CategoryUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: CategoryWhereUniqueInput
+    data: XOR<CategoryUpdateWithoutCompanyInput, CategoryUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type CategoryUpdateManyWithWhereWithoutCompanyInput = {
+    where: CategoryScalarWhereInput
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type CategoryScalarWhereInput = {
+    AND?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
+    OR?: CategoryScalarWhereInput[]
+    NOT?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
+    id?: IntFilter<"Category"> | number
+    category?: StringFilter<"Category"> | string
+    companyId?: IntFilter<"Category"> | number
+  }
+
+  export type UnitUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: UnitWhereUniqueInput
+    update: XOR<UnitUpdateWithoutCompanyInput, UnitUncheckedUpdateWithoutCompanyInput>
+    create: XOR<UnitCreateWithoutCompanyInput, UnitUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type UnitUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: UnitWhereUniqueInput
+    data: XOR<UnitUpdateWithoutCompanyInput, UnitUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type UnitUpdateManyWithWhereWithoutCompanyInput = {
+    where: UnitScalarWhereInput
+    data: XOR<UnitUpdateManyMutationInput, UnitUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type UnitScalarWhereInput = {
+    AND?: UnitScalarWhereInput | UnitScalarWhereInput[]
+    OR?: UnitScalarWhereInput[]
+    NOT?: UnitScalarWhereInput | UnitScalarWhereInput[]
+    id?: IntFilter<"Unit"> | number
+    name?: StringFilter<"Unit"> | string
+    decimalNOs?: IntFilter<"Unit"> | number
+    companyId?: IntFilter<"Unit"> | number
+  }
+
+  export type TaxUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: TaxWhereUniqueInput
+    update: XOR<TaxUpdateWithoutCompanyInput, TaxUncheckedUpdateWithoutCompanyInput>
+    create: XOR<TaxCreateWithoutCompanyInput, TaxUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type TaxUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: TaxWhereUniqueInput
+    data: XOR<TaxUpdateWithoutCompanyInput, TaxUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type TaxUpdateManyWithWhereWithoutCompanyInput = {
+    where: TaxScalarWhereInput
+    data: XOR<TaxUpdateManyMutationInput, TaxUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type TaxScalarWhereInput = {
+    AND?: TaxScalarWhereInput | TaxScalarWhereInput[]
+    OR?: TaxScalarWhereInput[]
+    NOT?: TaxScalarWhereInput | TaxScalarWhereInput[]
+    id?: IntFilter<"Tax"> | number
+    taxName?: StringFilter<"Tax"> | string
+    percentage?: DecimalFilter<"Tax"> | Decimal | DecimalJsLike | number | string
+    companyId?: IntFilter<"Tax"> | number
+  }
+
+  export type ProductUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: ProductWhereUniqueInput
+    update: XOR<ProductUpdateWithoutCompanyInput, ProductUncheckedUpdateWithoutCompanyInput>
+    create: XOR<ProductCreateWithoutCompanyInput, ProductUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type ProductUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: ProductWhereUniqueInput
+    data: XOR<ProductUpdateWithoutCompanyInput, ProductUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type ProductUpdateManyWithWhereWithoutCompanyInput = {
+    where: ProductScalarWhereInput
+    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type ProductScalarWhereInput = {
+    AND?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    OR?: ProductScalarWhereInput[]
+    NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    id?: IntFilter<"Product"> | number
+    itemCode?: StringFilter<"Product"> | string
+    itemName?: StringFilter<"Product"> | string
+    shortCode?: StringNullableFilter<"Product"> | string | null
+    printName?: StringNullableFilter<"Product"> | string | null
+    hsnCode?: StringNullableFilter<"Product"> | string | null
+    categoryId?: IntFilter<"Product"> | number
+    unitId?: IntFilter<"Product"> | number
+    taxId?: IntFilter<"Product"> | number
+    prate?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    srate?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    mrp?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFilter<"Product"> | boolean
+    userId?: IntFilter<"Product"> | number
+    createdDate?: DateTimeFilter<"Product"> | Date | string
+    modifiedDate?: DateTimeNullableFilter<"Product"> | Date | string | null
+    modifiedUserId?: IntNullableFilter<"Product"> | number | null
+    imageSaveInLocation?: StringNullableFilter<"Product"> | string | null
+    companyId?: IntFilter<"Product"> | number
+  }
+
+  export type SalesUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: SalesWhereUniqueInput
+    update: XOR<SalesUpdateWithoutCompanyInput, SalesUncheckedUpdateWithoutCompanyInput>
+    create: XOR<SalesCreateWithoutCompanyInput, SalesUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type SalesUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: SalesWhereUniqueInput
+    data: XOR<SalesUpdateWithoutCompanyInput, SalesUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type SalesUpdateManyWithWhereWithoutCompanyInput = {
+    where: SalesScalarWhereInput
+    data: XOR<SalesUpdateManyMutationInput, SalesUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type SalesScalarWhereInput = {
+    AND?: SalesScalarWhereInput | SalesScalarWhereInput[]
+    OR?: SalesScalarWhereInput[]
+    NOT?: SalesScalarWhereInput | SalesScalarWhereInput[]
+    id?: IntFilter<"Sales"> | number
+    prefix?: StringNullableFilter<"Sales"> | string | null
+    billNo?: StringFilter<"Sales"> | string
+    suffix?: StringNullableFilter<"Sales"> | string | null
+    date?: DateTimeFilter<"Sales"> | Date | string
+    customerId?: IntFilter<"Sales"> | number
+    itemId?: IntFilter<"Sales"> | number
+    qty?: IntFilter<"Sales"> | number
+    rate?: DecimalFilter<"Sales"> | Decimal | DecimalJsLike | number | string
+    taxPerc?: DecimalFilter<"Sales"> | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFilter<"Sales"> | Decimal | DecimalJsLike | number | string
+    srate?: DecimalFilter<"Sales"> | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFilter<"Sales"> | Decimal | DecimalJsLike | number | string
+    userId?: IntFilter<"Sales"> | number
+    createdDate?: DateTimeFilter<"Sales"> | Date | string
+    modifiedUserId?: IntNullableFilter<"Sales"> | number | null
+    modifiedDate?: DateTimeNullableFilter<"Sales"> | Date | string | null
+    timeOfBill?: DateTimeNullableFilter<"Sales"> | Date | string | null
+    timeOfModifyBill?: DateTimeNullableFilter<"Sales"> | Date | string | null
+    companyId?: IntFilter<"Sales"> | number
+  }
+
   export type CompanyCreateWithoutUsersInput = {
     tenantId: string
     name: string
@@ -15467,6 +16585,11 @@ export namespace Prisma {
     dbUrl: string
     createdAt?: Date | string
     status?: string
+    categories?: CategoryCreateNestedManyWithoutCompanyInput
+    units?: UnitCreateNestedManyWithoutCompanyInput
+    taxes?: TaxCreateNestedManyWithoutCompanyInput
+    products?: ProductCreateNestedManyWithoutCompanyInput
+    sales?: SalesCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateWithoutUsersInput = {
@@ -15478,6 +16601,11 @@ export namespace Prisma {
     dbUrl: string
     createdAt?: Date | string
     status?: string
+    categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
+    units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
+    taxes?: TaxUncheckedCreateNestedManyWithoutCompanyInput
+    products?: ProductUncheckedCreateNestedManyWithoutCompanyInput
+    sales?: SalesUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyCreateOrConnectWithoutUsersInput = {
@@ -15502,6 +16630,7 @@ export namespace Prisma {
     category: CategoryCreateNestedOneWithoutProductsInput
     unit: UnitCreateNestedOneWithoutProductsInput
     tax: TaxCreateNestedOneWithoutProductsInput
+    company: CompanyCreateNestedOneWithoutProductsInput
     sales?: SalesCreateNestedManyWithoutProductInput
   }
 
@@ -15523,6 +16652,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
     sales?: SalesUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -15583,6 +16713,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    company: CompanyCreateNestedOneWithoutSalesInput
     customer: CustomerCreateNestedOneWithoutSalesInput
     product: ProductCreateNestedOneWithoutSalesInput
   }
@@ -15606,6 +16737,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    companyId: number
   }
 
   export type SalesCreateOrConnectWithoutUserInput = {
@@ -15637,6 +16769,11 @@ export namespace Prisma {
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
+    categories?: CategoryUpdateManyWithoutCompanyNestedInput
+    units?: UnitUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUpdateManyWithoutCompanyNestedInput
+    products?: ProductUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateWithoutUsersInput = {
@@ -15648,6 +16785,11 @@ export namespace Prisma {
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
+    categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
+    units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUncheckedUpdateManyWithoutCompanyNestedInput
+    products?: ProductUncheckedUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type ProductUpsertWithWhereUniqueWithoutUserInput = {
@@ -15664,30 +16806,6 @@ export namespace Prisma {
   export type ProductUpdateManyWithWhereWithoutUserInput = {
     where: ProductScalarWhereInput
     data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type ProductScalarWhereInput = {
-    AND?: ProductScalarWhereInput | ProductScalarWhereInput[]
-    OR?: ProductScalarWhereInput[]
-    NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
-    id?: IntFilter<"Product"> | number
-    itemCode?: StringFilter<"Product"> | string
-    itemName?: StringFilter<"Product"> | string
-    shortCode?: StringNullableFilter<"Product"> | string | null
-    printName?: StringNullableFilter<"Product"> | string | null
-    hsnCode?: StringNullableFilter<"Product"> | string | null
-    categoryId?: IntFilter<"Product"> | number
-    unitId?: IntFilter<"Product"> | number
-    taxId?: IntFilter<"Product"> | number
-    prate?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
-    srate?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
-    mrp?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
-    isActive?: BoolFilter<"Product"> | boolean
-    userId?: IntFilter<"Product"> | number
-    createdDate?: DateTimeFilter<"Product"> | Date | string
-    modifiedDate?: DateTimeNullableFilter<"Product"> | Date | string | null
-    modifiedUserId?: IntNullableFilter<"Product"> | number | null
-    imageSaveInLocation?: StringNullableFilter<"Product"> | string | null
   }
 
   export type CustomerUpsertWithWhereUniqueWithoutUserInput = {
@@ -15736,29 +16854,40 @@ export namespace Prisma {
     data: XOR<SalesUpdateManyMutationInput, SalesUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type SalesScalarWhereInput = {
-    AND?: SalesScalarWhereInput | SalesScalarWhereInput[]
-    OR?: SalesScalarWhereInput[]
-    NOT?: SalesScalarWhereInput | SalesScalarWhereInput[]
-    id?: IntFilter<"Sales"> | number
-    prefix?: StringNullableFilter<"Sales"> | string | null
-    billNo?: StringFilter<"Sales"> | string
-    suffix?: StringNullableFilter<"Sales"> | string | null
-    date?: DateTimeFilter<"Sales"> | Date | string
-    customerId?: IntFilter<"Sales"> | number
-    itemId?: IntFilter<"Sales"> | number
-    qty?: IntFilter<"Sales"> | number
-    rate?: DecimalFilter<"Sales"> | Decimal | DecimalJsLike | number | string
-    taxPerc?: DecimalFilter<"Sales"> | Decimal | DecimalJsLike | number | string
-    taxAmount?: DecimalFilter<"Sales"> | Decimal | DecimalJsLike | number | string
-    srate?: DecimalFilter<"Sales"> | Decimal | DecimalJsLike | number | string
-    amount?: DecimalFilter<"Sales"> | Decimal | DecimalJsLike | number | string
-    userId?: IntFilter<"Sales"> | number
-    createdDate?: DateTimeFilter<"Sales"> | Date | string
-    modifiedUserId?: IntNullableFilter<"Sales"> | number | null
-    modifiedDate?: DateTimeNullableFilter<"Sales"> | Date | string | null
-    timeOfBill?: DateTimeNullableFilter<"Sales"> | Date | string | null
-    timeOfModifyBill?: DateTimeNullableFilter<"Sales"> | Date | string | null
+  export type CompanyCreateWithoutCategoriesInput = {
+    tenantId: string
+    name: string
+    adminEmail: string
+    adminPassword: string
+    dbUrl: string
+    createdAt?: Date | string
+    status?: string
+    users?: UserCreateNestedManyWithoutCompanyInput
+    units?: UnitCreateNestedManyWithoutCompanyInput
+    taxes?: TaxCreateNestedManyWithoutCompanyInput
+    products?: ProductCreateNestedManyWithoutCompanyInput
+    sales?: SalesCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutCategoriesInput = {
+    id?: number
+    tenantId: string
+    name: string
+    adminEmail: string
+    adminPassword: string
+    dbUrl: string
+    createdAt?: Date | string
+    status?: string
+    users?: UserUncheckedCreateNestedManyWithoutCompanyInput
+    units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
+    taxes?: TaxUncheckedCreateNestedManyWithoutCompanyInput
+    products?: ProductUncheckedCreateNestedManyWithoutCompanyInput
+    sales?: SalesUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutCategoriesInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutCategoriesInput, CompanyUncheckedCreateWithoutCategoriesInput>
   }
 
   export type ProductCreateWithoutCategoryInput = {
@@ -15778,6 +16907,7 @@ export namespace Prisma {
     unit: UnitCreateNestedOneWithoutProductsInput
     tax: TaxCreateNestedOneWithoutProductsInput
     user: UserCreateNestedOneWithoutProductsInput
+    company: CompanyCreateNestedOneWithoutProductsInput
     sales?: SalesCreateNestedManyWithoutProductInput
   }
 
@@ -15799,6 +16929,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
     sales?: SalesUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -15810,6 +16941,48 @@ export namespace Prisma {
   export type ProductCreateManyCategoryInputEnvelope = {
     data: ProductCreateManyCategoryInput | ProductCreateManyCategoryInput[]
     skipDuplicates?: boolean
+  }
+
+  export type CompanyUpsertWithoutCategoriesInput = {
+    update: XOR<CompanyUpdateWithoutCategoriesInput, CompanyUncheckedUpdateWithoutCategoriesInput>
+    create: XOR<CompanyCreateWithoutCategoriesInput, CompanyUncheckedCreateWithoutCategoriesInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutCategoriesInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutCategoriesInput, CompanyUncheckedUpdateWithoutCategoriesInput>
+  }
+
+  export type CompanyUpdateWithoutCategoriesInput = {
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    dbUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    users?: UserUpdateManyWithoutCompanyNestedInput
+    units?: UnitUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUpdateManyWithoutCompanyNestedInput
+    products?: ProductUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutCategoriesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    dbUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
+    units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUncheckedUpdateManyWithoutCompanyNestedInput
+    products?: ProductUncheckedUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type ProductUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -15826,6 +16999,42 @@ export namespace Prisma {
   export type ProductUpdateManyWithWhereWithoutCategoryInput = {
     where: ProductScalarWhereInput
     data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type CompanyCreateWithoutUnitsInput = {
+    tenantId: string
+    name: string
+    adminEmail: string
+    adminPassword: string
+    dbUrl: string
+    createdAt?: Date | string
+    status?: string
+    users?: UserCreateNestedManyWithoutCompanyInput
+    categories?: CategoryCreateNestedManyWithoutCompanyInput
+    taxes?: TaxCreateNestedManyWithoutCompanyInput
+    products?: ProductCreateNestedManyWithoutCompanyInput
+    sales?: SalesCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutUnitsInput = {
+    id?: number
+    tenantId: string
+    name: string
+    adminEmail: string
+    adminPassword: string
+    dbUrl: string
+    createdAt?: Date | string
+    status?: string
+    users?: UserUncheckedCreateNestedManyWithoutCompanyInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
+    taxes?: TaxUncheckedCreateNestedManyWithoutCompanyInput
+    products?: ProductUncheckedCreateNestedManyWithoutCompanyInput
+    sales?: SalesUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutUnitsInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutUnitsInput, CompanyUncheckedCreateWithoutUnitsInput>
   }
 
   export type ProductCreateWithoutUnitInput = {
@@ -15845,6 +17054,7 @@ export namespace Prisma {
     category: CategoryCreateNestedOneWithoutProductsInput
     tax: TaxCreateNestedOneWithoutProductsInput
     user: UserCreateNestedOneWithoutProductsInput
+    company: CompanyCreateNestedOneWithoutProductsInput
     sales?: SalesCreateNestedManyWithoutProductInput
   }
 
@@ -15866,6 +17076,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
     sales?: SalesUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -15877,6 +17088,48 @@ export namespace Prisma {
   export type ProductCreateManyUnitInputEnvelope = {
     data: ProductCreateManyUnitInput | ProductCreateManyUnitInput[]
     skipDuplicates?: boolean
+  }
+
+  export type CompanyUpsertWithoutUnitsInput = {
+    update: XOR<CompanyUpdateWithoutUnitsInput, CompanyUncheckedUpdateWithoutUnitsInput>
+    create: XOR<CompanyCreateWithoutUnitsInput, CompanyUncheckedCreateWithoutUnitsInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutUnitsInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutUnitsInput, CompanyUncheckedUpdateWithoutUnitsInput>
+  }
+
+  export type CompanyUpdateWithoutUnitsInput = {
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    dbUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    users?: UserUpdateManyWithoutCompanyNestedInput
+    categories?: CategoryUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUpdateManyWithoutCompanyNestedInput
+    products?: ProductUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutUnitsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    dbUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUncheckedUpdateManyWithoutCompanyNestedInput
+    products?: ProductUncheckedUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type ProductUpsertWithWhereUniqueWithoutUnitInput = {
@@ -15893,6 +17146,42 @@ export namespace Prisma {
   export type ProductUpdateManyWithWhereWithoutUnitInput = {
     where: ProductScalarWhereInput
     data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutUnitInput>
+  }
+
+  export type CompanyCreateWithoutTaxesInput = {
+    tenantId: string
+    name: string
+    adminEmail: string
+    adminPassword: string
+    dbUrl: string
+    createdAt?: Date | string
+    status?: string
+    users?: UserCreateNestedManyWithoutCompanyInput
+    categories?: CategoryCreateNestedManyWithoutCompanyInput
+    units?: UnitCreateNestedManyWithoutCompanyInput
+    products?: ProductCreateNestedManyWithoutCompanyInput
+    sales?: SalesCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutTaxesInput = {
+    id?: number
+    tenantId: string
+    name: string
+    adminEmail: string
+    adminPassword: string
+    dbUrl: string
+    createdAt?: Date | string
+    status?: string
+    users?: UserUncheckedCreateNestedManyWithoutCompanyInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
+    units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
+    products?: ProductUncheckedCreateNestedManyWithoutCompanyInput
+    sales?: SalesUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutTaxesInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutTaxesInput, CompanyUncheckedCreateWithoutTaxesInput>
   }
 
   export type ProductCreateWithoutTaxInput = {
@@ -15912,6 +17201,7 @@ export namespace Prisma {
     category: CategoryCreateNestedOneWithoutProductsInput
     unit: UnitCreateNestedOneWithoutProductsInput
     user: UserCreateNestedOneWithoutProductsInput
+    company: CompanyCreateNestedOneWithoutProductsInput
     sales?: SalesCreateNestedManyWithoutProductInput
   }
 
@@ -15933,6 +17223,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
     sales?: SalesUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -15944,6 +17235,48 @@ export namespace Prisma {
   export type ProductCreateManyTaxInputEnvelope = {
     data: ProductCreateManyTaxInput | ProductCreateManyTaxInput[]
     skipDuplicates?: boolean
+  }
+
+  export type CompanyUpsertWithoutTaxesInput = {
+    update: XOR<CompanyUpdateWithoutTaxesInput, CompanyUncheckedUpdateWithoutTaxesInput>
+    create: XOR<CompanyCreateWithoutTaxesInput, CompanyUncheckedCreateWithoutTaxesInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutTaxesInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutTaxesInput, CompanyUncheckedUpdateWithoutTaxesInput>
+  }
+
+  export type CompanyUpdateWithoutTaxesInput = {
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    dbUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    users?: UserUpdateManyWithoutCompanyNestedInput
+    categories?: CategoryUpdateManyWithoutCompanyNestedInput
+    units?: UnitUpdateManyWithoutCompanyNestedInput
+    products?: ProductUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutTaxesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    dbUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
+    units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
+    products?: ProductUncheckedUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type ProductUpsertWithWhereUniqueWithoutTaxInput = {
@@ -15964,11 +17297,13 @@ export namespace Prisma {
 
   export type CategoryCreateWithoutProductsInput = {
     category: string
+    company: CompanyCreateNestedOneWithoutCategoriesInput
   }
 
   export type CategoryUncheckedCreateWithoutProductsInput = {
     id?: number
     category: string
+    companyId: number
   }
 
   export type CategoryCreateOrConnectWithoutProductsInput = {
@@ -15979,12 +17314,14 @@ export namespace Prisma {
   export type UnitCreateWithoutProductsInput = {
     name: string
     decimalNOs: number
+    company: CompanyCreateNestedOneWithoutUnitsInput
   }
 
   export type UnitUncheckedCreateWithoutProductsInput = {
     id?: number
     name: string
     decimalNOs: number
+    companyId: number
   }
 
   export type UnitCreateOrConnectWithoutProductsInput = {
@@ -15995,12 +17332,14 @@ export namespace Prisma {
   export type TaxCreateWithoutProductsInput = {
     taxName: string
     percentage: Decimal | DecimalJsLike | number | string
+    company: CompanyCreateNestedOneWithoutTaxesInput
   }
 
   export type TaxUncheckedCreateWithoutProductsInput = {
     id?: number
     taxName: string
     percentage: Decimal | DecimalJsLike | number | string
+    companyId: number
   }
 
   export type TaxCreateOrConnectWithoutProductsInput = {
@@ -16034,6 +17373,42 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutProductsInput, UserUncheckedCreateWithoutProductsInput>
   }
 
+  export type CompanyCreateWithoutProductsInput = {
+    tenantId: string
+    name: string
+    adminEmail: string
+    adminPassword: string
+    dbUrl: string
+    createdAt?: Date | string
+    status?: string
+    users?: UserCreateNestedManyWithoutCompanyInput
+    categories?: CategoryCreateNestedManyWithoutCompanyInput
+    units?: UnitCreateNestedManyWithoutCompanyInput
+    taxes?: TaxCreateNestedManyWithoutCompanyInput
+    sales?: SalesCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutProductsInput = {
+    id?: number
+    tenantId: string
+    name: string
+    adminEmail: string
+    adminPassword: string
+    dbUrl: string
+    createdAt?: Date | string
+    status?: string
+    users?: UserUncheckedCreateNestedManyWithoutCompanyInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
+    units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
+    taxes?: TaxUncheckedCreateNestedManyWithoutCompanyInput
+    sales?: SalesUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutProductsInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutProductsInput, CompanyUncheckedCreateWithoutProductsInput>
+  }
+
   export type SalesCreateWithoutProductInput = {
     prefix?: string | null
     billNo: string
@@ -16050,6 +17425,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    company: CompanyCreateNestedOneWithoutSalesInput
     customer: CustomerCreateNestedOneWithoutSalesInput
     user: UserCreateNestedOneWithoutSalesInput
   }
@@ -16073,6 +17449,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    companyId: number
   }
 
   export type SalesCreateOrConnectWithoutProductInput = {
@@ -16098,11 +17475,13 @@ export namespace Prisma {
 
   export type CategoryUpdateWithoutProductsInput = {
     category?: StringFieldUpdateOperationsInput | string
+    company?: CompanyUpdateOneRequiredWithoutCategoriesNestedInput
   }
 
   export type CategoryUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type UnitUpsertWithoutProductsInput = {
@@ -16119,12 +17498,14 @@ export namespace Prisma {
   export type UnitUpdateWithoutProductsInput = {
     name?: StringFieldUpdateOperationsInput | string
     decimalNOs?: IntFieldUpdateOperationsInput | number
+    company?: CompanyUpdateOneRequiredWithoutUnitsNestedInput
   }
 
   export type UnitUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     decimalNOs?: IntFieldUpdateOperationsInput | number
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type TaxUpsertWithoutProductsInput = {
@@ -16141,12 +17522,14 @@ export namespace Prisma {
   export type TaxUpdateWithoutProductsInput = {
     taxName?: StringFieldUpdateOperationsInput | string
     percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    company?: CompanyUpdateOneRequiredWithoutTaxesNestedInput
   }
 
   export type TaxUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
     taxName?: StringFieldUpdateOperationsInput | string
     percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserUpsertWithoutProductsInput = {
@@ -16179,6 +17562,48 @@ export namespace Prisma {
     companyId?: IntFieldUpdateOperationsInput | number
     customers?: CustomerUncheckedUpdateManyWithoutUserNestedInput
     sales?: SalesUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CompanyUpsertWithoutProductsInput = {
+    update: XOR<CompanyUpdateWithoutProductsInput, CompanyUncheckedUpdateWithoutProductsInput>
+    create: XOR<CompanyCreateWithoutProductsInput, CompanyUncheckedCreateWithoutProductsInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutProductsInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutProductsInput, CompanyUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type CompanyUpdateWithoutProductsInput = {
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    dbUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    users?: UserUpdateManyWithoutCompanyNestedInput
+    categories?: CategoryUpdateManyWithoutCompanyNestedInput
+    units?: UnitUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutProductsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    dbUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
+    units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUncheckedUpdateManyWithoutCompanyNestedInput
+    sales?: SalesUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type SalesUpsertWithWhereUniqueWithoutProductInput = {
@@ -16239,6 +17664,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    company: CompanyCreateNestedOneWithoutSalesInput
     product: ProductCreateNestedOneWithoutSalesInput
     user: UserCreateNestedOneWithoutSalesInput
   }
@@ -16262,6 +17688,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    companyId: number
   }
 
   export type SalesCreateOrConnectWithoutCustomerInput = {
@@ -16322,6 +17749,42 @@ export namespace Prisma {
     data: XOR<SalesUpdateManyMutationInput, SalesUncheckedUpdateManyWithoutCustomerInput>
   }
 
+  export type CompanyCreateWithoutSalesInput = {
+    tenantId: string
+    name: string
+    adminEmail: string
+    adminPassword: string
+    dbUrl: string
+    createdAt?: Date | string
+    status?: string
+    users?: UserCreateNestedManyWithoutCompanyInput
+    categories?: CategoryCreateNestedManyWithoutCompanyInput
+    units?: UnitCreateNestedManyWithoutCompanyInput
+    taxes?: TaxCreateNestedManyWithoutCompanyInput
+    products?: ProductCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutSalesInput = {
+    id?: number
+    tenantId: string
+    name: string
+    adminEmail: string
+    adminPassword: string
+    dbUrl: string
+    createdAt?: Date | string
+    status?: string
+    users?: UserUncheckedCreateNestedManyWithoutCompanyInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
+    units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
+    taxes?: TaxUncheckedCreateNestedManyWithoutCompanyInput
+    products?: ProductUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutSalesInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutSalesInput, CompanyUncheckedCreateWithoutSalesInput>
+  }
+
   export type CustomerCreateWithoutSalesInput = {
     name: string
     mobileNo?: string | null
@@ -16366,6 +17829,7 @@ export namespace Prisma {
     unit: UnitCreateNestedOneWithoutProductsInput
     tax: TaxCreateNestedOneWithoutProductsInput
     user: UserCreateNestedOneWithoutProductsInput
+    company: CompanyCreateNestedOneWithoutProductsInput
   }
 
   export type ProductUncheckedCreateWithoutSalesInput = {
@@ -16387,6 +17851,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
   }
 
   export type ProductCreateOrConnectWithoutSalesInput = {
@@ -16418,6 +17883,48 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutSalesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutSalesInput, UserUncheckedCreateWithoutSalesInput>
+  }
+
+  export type CompanyUpsertWithoutSalesInput = {
+    update: XOR<CompanyUpdateWithoutSalesInput, CompanyUncheckedUpdateWithoutSalesInput>
+    create: XOR<CompanyCreateWithoutSalesInput, CompanyUncheckedCreateWithoutSalesInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutSalesInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutSalesInput, CompanyUncheckedUpdateWithoutSalesInput>
+  }
+
+  export type CompanyUpdateWithoutSalesInput = {
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    dbUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    users?: UserUpdateManyWithoutCompanyNestedInput
+    categories?: CategoryUpdateManyWithoutCompanyNestedInput
+    units?: UnitUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUpdateManyWithoutCompanyNestedInput
+    products?: ProductUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutSalesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    dbUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
+    units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
+    taxes?: TaxUncheckedUpdateManyWithoutCompanyNestedInput
+    products?: ProductUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type CustomerUpsertWithoutSalesInput = {
@@ -16481,6 +17988,7 @@ export namespace Prisma {
     unit?: UnitUpdateOneRequiredWithoutProductsNestedInput
     tax?: TaxUpdateOneRequiredWithoutProductsNestedInput
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
+    company?: CompanyUpdateOneRequiredWithoutProductsNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutSalesInput = {
@@ -16502,6 +18010,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserUpsertWithoutSalesInput = {
@@ -16544,6 +18053,66 @@ export namespace Prisma {
     role: string
   }
 
+  export type CategoryCreateManyCompanyInput = {
+    id?: number
+    category: string
+  }
+
+  export type UnitCreateManyCompanyInput = {
+    id?: number
+    name: string
+    decimalNOs: number
+  }
+
+  export type TaxCreateManyCompanyInput = {
+    id?: number
+    taxName: string
+    percentage: Decimal | DecimalJsLike | number | string
+  }
+
+  export type ProductCreateManyCompanyInput = {
+    id?: number
+    itemCode: string
+    itemName: string
+    shortCode?: string | null
+    printName?: string | null
+    hsnCode?: string | null
+    categoryId: number
+    unitId: number
+    taxId: number
+    prate: Decimal | DecimalJsLike | number | string
+    srate: Decimal | DecimalJsLike | number | string
+    mrp: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    userId: number
+    createdDate?: Date | string
+    modifiedDate?: Date | string | null
+    modifiedUserId?: number | null
+    imageSaveInLocation?: string | null
+  }
+
+  export type SalesCreateManyCompanyInput = {
+    id?: number
+    prefix?: string | null
+    billNo: string
+    suffix?: string | null
+    date: Date | string
+    customerId: number
+    itemId: number
+    qty: number
+    rate: Decimal | DecimalJsLike | number | string
+    taxPerc: Decimal | DecimalJsLike | number | string
+    taxAmount: Decimal | DecimalJsLike | number | string
+    srate: Decimal | DecimalJsLike | number | string
+    amount: Decimal | DecimalJsLike | number | string
+    userId: number
+    createdDate?: Date | string
+    modifiedUserId?: number | null
+    modifiedDate?: Date | string | null
+    timeOfBill?: Date | string | null
+    timeOfModifyBill?: Date | string | null
+  }
+
   export type UserUpdateWithoutCompanyInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -16573,6 +18142,189 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
   }
 
+  export type CategoryUpdateWithoutCompanyInput = {
+    category?: StringFieldUpdateOperationsInput | string
+    products?: ProductUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryUncheckedUpdateWithoutCompanyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryUncheckedUpdateManyWithoutCompanyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UnitUpdateWithoutCompanyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    decimalNOs?: IntFieldUpdateOperationsInput | number
+    products?: ProductUpdateManyWithoutUnitNestedInput
+  }
+
+  export type UnitUncheckedUpdateWithoutCompanyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    decimalNOs?: IntFieldUpdateOperationsInput | number
+    products?: ProductUncheckedUpdateManyWithoutUnitNestedInput
+  }
+
+  export type UnitUncheckedUpdateManyWithoutCompanyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    decimalNOs?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TaxUpdateWithoutCompanyInput = {
+    taxName?: StringFieldUpdateOperationsInput | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    products?: ProductUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxUncheckedUpdateWithoutCompanyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    taxName?: StringFieldUpdateOperationsInput | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    products?: ProductUncheckedUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxUncheckedUpdateManyWithoutCompanyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    taxName?: StringFieldUpdateOperationsInput | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type ProductUpdateWithoutCompanyInput = {
+    itemCode?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    shortCode?: NullableStringFieldUpdateOperationsInput | string | null
+    printName?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    prate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    srate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    mrp?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    unit?: UnitUpdateOneRequiredWithoutProductsNestedInput
+    tax?: TaxUpdateOneRequiredWithoutProductsNestedInput
+    user?: UserUpdateOneRequiredWithoutProductsNestedInput
+    sales?: SalesUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutCompanyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    itemCode?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    shortCode?: NullableStringFieldUpdateOperationsInput | string | null
+    printName?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: IntFieldUpdateOperationsInput | number
+    unitId?: IntFieldUpdateOperationsInput | number
+    taxId?: IntFieldUpdateOperationsInput | number
+    prate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    srate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    mrp?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    userId?: IntFieldUpdateOperationsInput | number
+    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    sales?: SalesUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateManyWithoutCompanyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    itemCode?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    shortCode?: NullableStringFieldUpdateOperationsInput | string | null
+    printName?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: IntFieldUpdateOperationsInput | number
+    unitId?: IntFieldUpdateOperationsInput | number
+    taxId?: IntFieldUpdateOperationsInput | number
+    prate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    srate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    mrp?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    userId?: IntFieldUpdateOperationsInput | number
+    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SalesUpdateWithoutCompanyInput = {
+    prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    billNo?: StringFieldUpdateOperationsInput | string
+    suffix?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    qty?: IntFieldUpdateOperationsInput | number
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxPerc?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    srate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    customer?: CustomerUpdateOneRequiredWithoutSalesNestedInput
+    product?: ProductUpdateOneRequiredWithoutSalesNestedInput
+    user?: UserUpdateOneRequiredWithoutSalesNestedInput
+  }
+
+  export type SalesUncheckedUpdateWithoutCompanyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    billNo?: StringFieldUpdateOperationsInput | string
+    suffix?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: IntFieldUpdateOperationsInput | number
+    itemId?: IntFieldUpdateOperationsInput | number
+    qty?: IntFieldUpdateOperationsInput | number
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxPerc?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    srate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    userId?: IntFieldUpdateOperationsInput | number
+    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SalesUncheckedUpdateManyWithoutCompanyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    billNo?: StringFieldUpdateOperationsInput | string
+    suffix?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: IntFieldUpdateOperationsInput | number
+    itemId?: IntFieldUpdateOperationsInput | number
+    qty?: IntFieldUpdateOperationsInput | number
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxPerc?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    srate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    userId?: IntFieldUpdateOperationsInput | number
+    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type ProductCreateManyUserInput = {
     id?: number
     itemCode: string
@@ -16591,6 +18343,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
   }
 
   export type CustomerCreateManyUserInput = {
@@ -16622,6 +18375,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    companyId: number
   }
 
   export type ProductUpdateWithoutUserInput = {
@@ -16641,6 +18395,7 @@ export namespace Prisma {
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     unit?: UnitUpdateOneRequiredWithoutProductsNestedInput
     tax?: TaxUpdateOneRequiredWithoutProductsNestedInput
+    company?: CompanyUpdateOneRequiredWithoutProductsNestedInput
     sales?: SalesUpdateManyWithoutProductNestedInput
   }
 
@@ -16662,6 +18417,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
     sales?: SalesUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -16683,6 +18439,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type CustomerUpdateWithoutUserInput = {
@@ -16732,6 +18489,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    company?: CompanyUpdateOneRequiredWithoutSalesNestedInput
     customer?: CustomerUpdateOneRequiredWithoutSalesNestedInput
     product?: ProductUpdateOneRequiredWithoutSalesNestedInput
   }
@@ -16755,6 +18513,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type SalesUncheckedUpdateManyWithoutUserInput = {
@@ -16776,6 +18535,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductCreateManyCategoryInput = {
@@ -16796,6 +18556,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
   }
 
   export type ProductUpdateWithoutCategoryInput = {
@@ -16815,6 +18576,7 @@ export namespace Prisma {
     unit?: UnitUpdateOneRequiredWithoutProductsNestedInput
     tax?: TaxUpdateOneRequiredWithoutProductsNestedInput
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
+    company?: CompanyUpdateOneRequiredWithoutProductsNestedInput
     sales?: SalesUpdateManyWithoutProductNestedInput
   }
 
@@ -16836,6 +18598,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
     sales?: SalesUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -16857,6 +18620,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductCreateManyUnitInput = {
@@ -16877,6 +18641,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
   }
 
   export type ProductUpdateWithoutUnitInput = {
@@ -16896,6 +18661,7 @@ export namespace Prisma {
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tax?: TaxUpdateOneRequiredWithoutProductsNestedInput
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
+    company?: CompanyUpdateOneRequiredWithoutProductsNestedInput
     sales?: SalesUpdateManyWithoutProductNestedInput
   }
 
@@ -16917,6 +18683,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
     sales?: SalesUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -16938,6 +18705,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductCreateManyTaxInput = {
@@ -16958,6 +18726,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     modifiedUserId?: number | null
     imageSaveInLocation?: string | null
+    companyId: number
   }
 
   export type ProductUpdateWithoutTaxInput = {
@@ -16977,6 +18746,7 @@ export namespace Prisma {
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     unit?: UnitUpdateOneRequiredWithoutProductsNestedInput
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
+    company?: CompanyUpdateOneRequiredWithoutProductsNestedInput
     sales?: SalesUpdateManyWithoutProductNestedInput
   }
 
@@ -16998,6 +18768,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
     sales?: SalesUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -17019,6 +18790,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     modifiedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     imageSaveInLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type SalesCreateManyProductInput = {
@@ -17040,6 +18812,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    companyId: number
   }
 
   export type SalesUpdateWithoutProductInput = {
@@ -17058,6 +18831,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    company?: CompanyUpdateOneRequiredWithoutSalesNestedInput
     customer?: CustomerUpdateOneRequiredWithoutSalesNestedInput
     user?: UserUpdateOneRequiredWithoutSalesNestedInput
   }
@@ -17081,6 +18855,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type SalesUncheckedUpdateManyWithoutProductInput = {
@@ -17102,6 +18877,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type SalesCreateManyCustomerInput = {
@@ -17123,6 +18899,7 @@ export namespace Prisma {
     modifiedDate?: Date | string | null
     timeOfBill?: Date | string | null
     timeOfModifyBill?: Date | string | null
+    companyId: number
   }
 
   export type SalesUpdateWithoutCustomerInput = {
@@ -17141,6 +18918,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    company?: CompanyUpdateOneRequiredWithoutSalesNestedInput
     product?: ProductUpdateOneRequiredWithoutSalesNestedInput
     user?: UserUpdateOneRequiredWithoutSalesNestedInput
   }
@@ -17164,6 +18942,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
   export type SalesUncheckedUpdateManyWithoutCustomerInput = {
@@ -17185,6 +18964,7 @@ export namespace Prisma {
     modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     timeOfModifyBill?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyId?: IntFieldUpdateOperationsInput | number
   }
 
 

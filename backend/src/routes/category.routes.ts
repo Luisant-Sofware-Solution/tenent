@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { createCategory, getCategories } from '../controllers/category.controller';
+import express from 'express'
+import { createCategory } from '../controllers/category.controller'
 
-const router = Router();
+const router = express.Router()
 
-router.post('/', createCategory);
-router.get('/', getCategories);
+// POST /categories
+router.post('/', createCategory)
 
-export default router;
+export default router

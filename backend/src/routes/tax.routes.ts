@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { createTax, getTaxes } from '../controllers/tax.controller';
+import express from 'express'
+import { createTax } from '../controllers/tax.controller'
 
-const router = Router();
+const router = express.Router()
 
-router.post('/', createTax);
-router.get('/', getTaxes);
+// POST /api/taxes
+router.post('/', createTax)
 
-export default router;
+export default router

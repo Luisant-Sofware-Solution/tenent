@@ -1,9 +1,13 @@
-import { Router } from 'express';
-import { createProduct, getProducts } from '../controllers/product.controller';
+// src/routes/product.routes.ts
+import express from 'express'
+import { createProduct, getAllProducts } from '../controllers/product.controller'
 
-const router = Router();
+const router = express.Router()
 
-router.post('/', createProduct);
-router.get('/', getProducts);
+// POST /api/products
+router.post('/', createProduct)
 
-export default router;
+// GET /api/products
+router.get('/', getAllProducts)
+
+export default router

@@ -11,70 +11,79 @@ datasource db {
 }
 
 model Company {
-  id            Int      @id @default(autoincrement())
-  tenantId      String   @unique
+  id            Int       @id @default(autoincrement())
+  tenantId      String    @unique
   name          String
-  adminEmail    String   @unique
+  adminEmail    String    @unique
   adminPassword String
   dbUrl         String
-  createdAt     DateTime @default(now())
-  status        String   @default("active")
+  createdAt     DateTime  @default(now())
+  status        String    @default("active")
 
-  users User[]
+  users      User[]
+  categories Category[]
+  units      Unit[]
+  taxes      Tax[]
+  products   Product[]
+  sales      Sales[]
 
-  @@schema("public")
   @@map("Company")
+  @@schema("public")
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
   email     String
   password  String
   role      String
   companyId Int
-  company   Company @relation(fields: [companyId], references: [id])
-  // Add opposite relation fields for Product, Customer, Sales if needed
+  company   Company    @relation(fields: [companyId], references: [id])
   products  Product[]
   customers Customer[]
   sales     Sales[]
-  @@schema("public") // Add this if you use schemas
+
+  @@map("User")
+  @@schema("public")
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  category String
+  id        Int       @id @default(autoincrement())
+  category  String
+  companyId Int
+  company   Company   @relation(fields: [companyId], references: [id])
+  products  Product[]
 
-  products Product[]
-
-  @@schema("public")
   @@map("Category")
+  @@schema("public")
 }
 
 model Unit {
-  id         Int    @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   name       String
   decimalNOs Int
+  companyId  Int
+  company    Company   @relation(fields: [companyId], references: [id])
+  products   Product[]
 
-  products Product[]
-
-  @@schema("public")
   @@map("Unit")
+  @@schema("public")
 }
 
 model Tax {
-  id         Int     @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   taxName    String
   percentage Decimal
+  companyId  Int
+  company    Company   @relation(fields: [companyId], references: [id])
+  products   Product[]
 
-  products Product[]
-
-  @@schema("public")
   @@map("Tax")
+  @@schema("public")
 }
 
 model Product {
-  id                  Int      @id @default(autoincrement())
+  id                  Int       @id @default(autoincrement())
   itemCode            String
   itemName            String
   shortCode           String?
@@ -86,42 +95,45 @@ model Product {
   prate               Decimal
   srate               Decimal
   mrp                 Decimal
-  isActive            Boolean  @default(true)
+  isActive            Boolean   @default(true)
   userId              Int
-  createdDate         DateTime @default(now())
+  createdDate         DateTime  @default(now())
   modifiedDate        DateTime?
   modifiedUserId      Int?
   imageSaveInLocation String?
+  companyId           Int
 
+  // 🔗 Relations
   category Category @relation(fields: [categoryId], references: [id])
   unit     Unit     @relation(fields: [unitId], references: [id])
   tax      Tax      @relation(fields: [taxId], references: [id])
   user     User     @relation(fields: [userId], references: [id])
+  company  Company  @relation(fields: [companyId], references: [id])
   sales    Sales[]
 
-  @@schema("public")
   @@map("Product")
+  @@schema("public")
 }
 
 model Customer {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   name           String
   mobileNo       String?
   city           String?
   userId         Int
-  createdDate    DateTime @default(now())
+  createdDate    DateTime  @default(now())
   modifiedDate   DateTime?
   modifiedUserId Int?
 
   user  User    @relation(fields: [userId], references: [id])
   sales Sales[]
 
-  @@schema("public")
   @@map("Customer")
+  @@schema("public")
 }
 
 model Sales {
-  id               Int      @id @default(autoincrement())
+  id               Int       @id @default(autoincrement())
   prefix           String?
   billNo           String
   suffix           String?
@@ -135,18 +147,21 @@ model Sales {
   srate            Decimal
   amount           Decimal
   userId           Int
-  createdDate      DateTime @default(now())
+  createdDate      DateTime  @default(now())
   modifiedUserId   Int?
   modifiedDate     DateTime?
   timeOfBill       DateTime?
   timeOfModifyBill DateTime?
+  companyId        Int
 
-  customer Customer @relation(fields: [customerId], references: [id])
-  product  Product  @relation(fields: [itemId], references: [id])
-  user     User     @relation(fields: [userId], references: [id])
+  // 🔗 Relations
+  company   Company   @relation(fields: [companyId], references: [id])
+  customer  Customer  @relation(fields: [customerId], references: [id])
+  product   Product   @relation(fields: [itemId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
 
-  @@schema("public")
   @@map("Sales")
+  @@schema("public")
 }
 
 model SuperAdmin {
@@ -157,6 +172,6 @@ model SuperAdmin {
   role      String   @default("superadmin")
   createdAt DateTime @default(now())
 
-  @@schema("public")
   @@map("SuperAdmin")
+  @@schema("public")
 }
