@@ -1,0 +1,162 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "./generated/client"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["public"]
+}
+
+model Company {
+  id            Int      @id @default(autoincrement())
+  tenantId      String   @unique
+  name          String
+  adminEmail    String   @unique
+  adminPassword String
+  dbUrl         String
+  createdAt     DateTime @default(now())
+  status        String   @default("active")
+
+  users User[]
+
+  @@schema("public")
+  @@map("Company")
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String
+  password  String
+  role      String
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id])
+  // Add opposite relation fields for Product, Customer, Sales if needed
+  products  Product[]
+  customers Customer[]
+  sales     Sales[]
+  @@schema("public") // Add this if you use schemas
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  category String
+
+  products Product[]
+
+  @@schema("public")
+  @@map("Category")
+}
+
+model Unit {
+  id         Int    @id @default(autoincrement())
+  name       String
+  decimalNOs Int
+
+  products Product[]
+
+  @@schema("public")
+  @@map("Unit")
+}
+
+model Tax {
+  id         Int     @id @default(autoincrement())
+  taxName    String
+  percentage Decimal
+
+  products Product[]
+
+  @@schema("public")
+  @@map("Tax")
+}
+
+model Product {
+  id                  Int      @id @default(autoincrement())
+  itemCode            String
+  itemName            String
+  shortCode           String?
+  printName           String?
+  hsnCode             String?
+  categoryId          Int
+  unitId              Int
+  taxId               Int
+  prate               Decimal
+  srate               Decimal
+  mrp                 Decimal
+  isActive            Boolean  @default(true)
+  userId              Int
+  createdDate         DateTime @default(now())
+  modifiedDate        DateTime?
+  modifiedUserId      Int?
+  imageSaveInLocation String?
+
+  category Category @relation(fields: [categoryId], references: [id])
+  unit     Unit     @relation(fields: [unitId], references: [id])
+  tax      Tax      @relation(fields: [taxId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+  sales    Sales[]
+
+  @@schema("public")
+  @@map("Product")
+}
+
+model Customer {
+  id             Int      @id @default(autoincrement())
+  name           String
+  mobileNo       String?
+  city           String?
+  userId         Int
+  createdDate    DateTime @default(now())
+  modifiedDate   DateTime?
+  modifiedUserId Int?
+
+  user  User    @relation(fields: [userId], references: [id])
+  sales Sales[]
+
+  @@schema("public")
+  @@map("Customer")
+}
+
+model Sales {
+  id               Int      @id @default(autoincrement())
+  prefix           String?
+  billNo           String
+  suffix           String?
+  date             DateTime
+  customerId       Int
+  itemId           Int
+  qty              Int
+  rate             Decimal
+  taxPerc          Decimal
+  taxAmount        Decimal
+  srate            Decimal
+  amount           Decimal
+  userId           Int
+  createdDate      DateTime @default(now())
+  modifiedUserId   Int?
+  modifiedDate     DateTime?
+  timeOfBill       DateTime?
+  timeOfModifyBill DateTime?
+
+  customer Customer @relation(fields: [customerId], references: [id])
+  product  Product  @relation(fields: [itemId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@schema("public")
+  @@map("Sales")
+}
+
+model SuperAdmin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("superadmin")
+  createdAt DateTime @default(now())
+
+  @@schema("public")
+  @@map("SuperAdmin")
+}
