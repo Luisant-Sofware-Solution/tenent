@@ -7,7 +7,7 @@
   background-color: #eef1f5;
 
   .dashboard-card {
-    background: white;
+    background: #fff;
     padding: 2.5rem;
     border-radius: 12px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
@@ -28,9 +28,14 @@
   }
 }
 
-@media (max-width: 600px) {
-  .dashboard-card {
+// Mobile screens
+@media (max-width: 768px) {
+  .dashboard-container {
     padding: 1.5rem;
+  }
+
+  .dashboard-card {
+    padding: 2rem;
 
     h1 {
       font-size: 1.6rem;
@@ -38,6 +43,25 @@
 
     p {
       font-size: 1rem;
+    }
+  }
+}
+
+// Extra small screens
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .dashboard-card {
+    padding: 1.5rem;
+
+    h1 {
+      font-size: 1.4rem;
+    }
+
+    p {
+      font-size: 0.95rem;
     }
   }
 }
