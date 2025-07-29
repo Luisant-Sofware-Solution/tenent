@@ -1,11 +1,19 @@
-.login-container {
+body {
+  margin: 0;
+  padding: 0;
+  font-family: monospace; // ✅ Use monospace globally
+  background: linear-gradient(135deg, #0980ac 0%, #fcb69f 100%, #ffb6c1 100%);
+  min-height: 100vh;
+  }
+
+.register-container {
   max-width: 400px;
   margin: 5% auto;
   padding: 2rem;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  font-family: monospace; // ⬅️ Set monospace globally here
+  font-family: monospace; // ✅ Explicitly apply monospace to container
 
   display: flex;
   flex-direction: column;
@@ -14,6 +22,11 @@
     text-align: center;
     color: #333;
     margin-bottom: 1.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
   }
 
   label {
@@ -29,7 +42,7 @@
     border-radius: 6px;
     border: 1px solid #ccc;
     width: 100%;
-    font-family: monospace; // ⬅️ Apply monospace to inputs too
+    font-family: monospace; // ✅ Ensure inputs use monospace
 
     &:focus {
       border-color: #007bff;
@@ -37,20 +50,20 @@
     }
   }
 
-  .password-field {
-    position: relative;
-    display: flex;
-    align-items: center;
+  button {
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: monospace; // ✅ Apply monospace to button
 
-    input {
-      padding-right: 2.5rem;
-    }
-
-    span {
-      position: absolute;
-      right: 10px;
-      cursor: pointer;
-      color: #888;
+    &:hover {
+      background-color: #0056b3;
     }
   }
 
@@ -80,35 +93,18 @@
       }
     }
   }
-
-  button {
-    margin-top: 1.5rem;
-    padding: 0.75rem;
-    background-color: #007bff;
-    color: white;
-    font-weight: 800;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-family: monospace; // ⬅️ Also apply to button
-
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
 }
 
 /* Responsive */
 @media screen and (max-width: 768px) {
-  .login-container {
+  .register-container {
     margin: 10% 5%;
     padding: 1.5rem;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .login-container {
+  .register-container {
     margin: 10% 2%;
     padding: 1rem;
 

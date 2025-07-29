@@ -12,26 +12,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCompanyByTenantId = exports.getCompanies = exports.createCompany = void 0;
-const client_1 = __importDefault(require("../db/client"));
-// 📌 Create a new Company
+exports.createCompany = void 0;
+const uuid_1 = require("uuid");
+const client_1 = __importDefault(require("../db/client")); // Your superadmin Prisma client
 const createCompany = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { tenantId, name, adminEmail, adminPassword, dbUrl } = req.body;
     try {
-        // Validation
-        if (!tenantId || !name || !adminEmail || !adminPassword || !dbUrl) {
-            return res.status(400).json({ error: 'All fields are required.' });
+        const { name, adminEmail, adminPassword, dbUrl } = req.body;
+        // ✅ Validate required fields and report missing ones
+        const missingFields = [];
+        if (!name)
+            missingFields.push('name');
+        if (!adminEmail)
+            missingFields.push('adminEmail');
+        if (!adminPassword)
+            missingFields.push('adminPassword');
+        if (!dbUrl)
+            missingFields.push('dbUrl');
+        if (missingFields.length > 0) {
+            return res.status(400).json({ error: `Missing field(s): ${missingFields.join(', ')}` });
         }
-        // Check for existing tenantId or email
+        const tenantId = `tenant_${(0, uuid_1.v4)()}`;
         const existing = yield client_1.default.company.findFirst({
             where: {
                 OR: [{ tenantId }, { adminEmail }],
             },
         });
         if (existing) {
-            return res.status(400).json({ error: 'Company with tenantId or email already exists.' });
+            return res.status(400).json({ error: 'Company already exists.' });
         }
-        // Create the company
         const company = yield client_1.default.company.create({
             data: {
                 tenantId,
@@ -53,54 +61,8 @@ const createCompany = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(201).json(company);
     }
     catch (err) {
+        console.error('❌ Error creating company:', err);
         res.status(500).json({ error: err.message });
     }
 });
 exports.createCompany = createCompany;
-// 📌 Get all Companies
-const getCompanies = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const companies = yield client_1.default.company.findMany({
-            select: {
-                id: true,
-                tenantId: true,
-                name: true,
-                adminEmail: true,
-                dbUrl: true,
-                status: true,
-                createdAt: true,
-            },
-        });
-        res.json(companies);
-    }
-    catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-exports.getCompanies = getCompanies;
-// 📌 Get a single company by tenantId
-const getCompanyByTenantId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { tenantId } = req.params;
-    try {
-        const company = yield client_1.default.company.findUnique({
-            where: { tenantId },
-            select: {
-                id: true,
-                tenantId: true,
-                name: true,
-                adminEmail: true,
-                dbUrl: true,
-                status: true,
-                createdAt: true,
-            },
-        });
-        if (!company) {
-            return res.status(404).json({ error: 'Company not found' });
-        }
-        res.json(company);
-    }
-    catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-exports.getCompanyByTenantId = getCompanyByTenantId;

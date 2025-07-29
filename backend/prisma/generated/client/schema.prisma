@@ -10,24 +10,31 @@ datasource db {
   schemas  = ["public"]
 }
 
+enum Role {
+  SUPERADMIN
+  ADMIN
+  USER
+
+  @@schema("public")
+}
+
 model Company {
-  id            Int      @id @default(autoincrement())
-  tenantId      String   @unique
+  id            Int        @id @default(autoincrement())
+  tenantId      String     @unique
   name          String
-  adminEmail    String   @unique
+  adminEmail    String     @unique
   adminPassword String
   dbUrl         String
-  createdAt     DateTime @default(now())
-  status        String   @default("active")
+  createdAt     DateTime   @default(now())
+  status        Boolean    @default(true)
+  users         User[]
+  categories    Category[]
+  units         Unit[]
+  taxes         Tax[]
+  products      Product[]
+  sales         Sales[]
 
-  users      User[]
-  categories Category[]
-  units      Unit[]
-  taxes      Tax[]
-  products   Product[]
-  sales      Sales[]
-
-  @@map("Company")
+  @@map("Companies")
   @@schema("public")
 }
 

@@ -1,17 +1,25 @@
+// src/controllers/company.controller.ts
 import { Request, Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 import prisma from '../db/client';
 
-// 📌 Create a new Company
+// ✅ Create a new company
 export const createCompany = async (req: Request, res: Response) => {
-  const { tenantId, name, adminEmail, adminPassword, dbUrl } = req.body;
-
   try {
-    // Validation
-    if (!tenantId || !name || !adminEmail || !adminPassword || !dbUrl) {
-      return res.status(400).json({ error: 'All fields are required.' });
+    const { name, adminEmail, adminPassword, dbUrl } = req.body;
+
+    const missingFields = [];
+    if (!name) missingFields.push('name');
+    if (!adminEmail) missingFields.push('adminEmail');
+    if (!adminPassword) missingFields.push('adminPassword');
+    if (!dbUrl) missingFields.push('dbUrl');
+
+    if (missingFields.length > 0) {
+      return res.status(400).json({ error: `Missing field(s): ${missingFields.join(', ')}` });
     }
 
-    // Check for existing tenantId or email
+    const tenantId = `tenant_${uuidv4()}`;
+
     const existing = await prisma.company.findFirst({
       where: {
         OR: [{ tenantId }, { adminEmail }],
@@ -19,10 +27,9 @@ export const createCompany = async (req: Request, res: Response) => {
     });
 
     if (existing) {
-      return res.status(400).json({ error: 'Company with tenantId or email already exists.' });
+      return res.status(400).json({ error: 'Company already exists.' });
     }
 
-    // Create the company
     const company = await prisma.company.create({
       data: {
         tenantId,
@@ -44,11 +51,12 @@ export const createCompany = async (req: Request, res: Response) => {
 
     res.status(201).json(company);
   } catch (err: any) {
+    console.error('❌ Error creating company:', err);
     res.status(500).json({ error: err.message });
   }
 };
 
-// 📌 Get all Companies
+// ✅ Get all companies
 export const getCompanies = async (_req: Request, res: Response) => {
   try {
     const companies = await prisma.company.findMany({
@@ -62,35 +70,8 @@ export const getCompanies = async (_req: Request, res: Response) => {
         createdAt: true,
       },
     });
+
     res.json(companies);
-  } catch (err: any) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-// 📌 Get a single company by tenantId
-export const getCompanyByTenantId = async (req: Request, res: Response) => {
-  const { tenantId } = req.params;
-
-  try {
-    const company = await prisma.company.findUnique({
-      where: { tenantId },
-      select: {
-        id: true,
-        tenantId: true,
-        name: true,
-        adminEmail: true,
-        dbUrl: true,
-        status: true,
-        createdAt: true,
-      },
-    });
-
-    if (!company) {
-      return res.status(404).json({ error: 'Company not found' });
-    }
-
-    res.json(company);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }

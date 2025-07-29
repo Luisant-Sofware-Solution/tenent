@@ -4,6 +4,98 @@
 /node_modules
 /.pnp
 .pnp.js
+# ----------------------------
+# Node.js & Package Managers
+# ----------------------------
+node_modules/
+.pnp/
+.pnp.js
+
+# Yarn Integrity
+.yarn-integrity
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.yarn/patches/
+.yarn/releases/
+.yarn/plugins/
+.yarn/sdks/
+.yarn/versions/
+
+# npm logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ----------------------------
+# TypeScript
+# ----------------------------
+dist/
+*.tsbuildinfo
+
+# ----------------------------
+# Vite (React Frontend)
+# ----------------------------
+.vite/
+build/
+
+# ----------------------------
+# Testing
+# ----------------------------
+coverage/
+jest.config.js
+.vitest/
+test-results/
+
+# ----------------------------
+# Prisma
+# ----------------------------
+prisma/migrations/
+prisma/dev.db
+prisma/*.sqlite
+*.db
+*.sqlite
+
+# ----------------------------
+# Environment Variables
+# ----------------------------
+.env
+.env.*
+!.env.example
+
+# ----------------------------
+# OS Generated Files
+# ----------------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------------
+# IDEs
+# ----------------------------
+.vscode/
+.idea/
+
+# ----------------------------
+# Logs
+# ----------------------------
+logs/
+*.log
+log.txt
+
+# ----------------------------
+# Local Files & Dumps
+# ----------------------------
+dump.sql
+*.dump
+*.bak
+
+# ----------------------------
+# Custom Build or Scripts
+# ----------------------------
+build/
+temp/
+tmp/
 
 # testing
 /coverage

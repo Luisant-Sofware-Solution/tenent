@@ -1,15 +1,9 @@
-// src/routes/superadmin.routes.ts
-import { Router } from 'express';
-import {
-  createSuperAdmin,
-  loginSuperAdmin,
-  // getAllSuperAdmins
-} from '../controllers/superadmin.controller';
+import { Router } from 'express'
+import { registerSuperAdmin, loginSuperAdmin } from '../controllers/superadmin.controller'
 
-const router = Router();
+const router = Router()
 
-router.post('/register', createSuperAdmin);
-router.post('/login', loginSuperAdmin);
-// router.get('/', getAllSuperAdmins);
+router.post('/register', registerSuperAdmin)
+router.post('/login', loginSuperAdmin)
 
-export default router;
+export default router

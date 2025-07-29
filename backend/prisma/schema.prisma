@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  output          = "./generated/client"
+  // output          = "./generated/client"
   previewFeatures = ["multiSchema"]
 }
 
@@ -10,6 +10,14 @@ datasource db {
   schemas  = ["public"]
 }
 
+enum Role {
+  SUPERADMIN
+  ADMIN
+  USER
+  @@schema("public")
+}
+
+
 model Company {
   id            Int       @id @default(autoincrement())
   tenantId      String    @unique
@@ -18,8 +26,7 @@ model Company {
   adminPassword String
   dbUrl         String
   createdAt     DateTime  @default(now())
-  status        String    @default("active")
-
+  status        Boolean    @default(true)
   users      User[]
   categories Category[]
   units      Unit[]
@@ -27,7 +34,7 @@ model Company {
   products   Product[]
   sales      Sales[]
 
-  @@map("Company")
+  @@map("Companies")
   @@schema("public")
 }
 

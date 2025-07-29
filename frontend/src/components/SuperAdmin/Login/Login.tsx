@@ -1,63 +1,62 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Login.scss';
+import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import './Login.scss'
+import { Eye, EyeOff } from 'lucide-react'
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [message, setMessage] = useState('')
+  const navigate = useNavigate()
 
   const handleLogin = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/superadmin/login', {
+      const res = await fetch('http://localhost:3001/api/superadmin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
-      });
+      })
 
-      const data = await res.json();
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message || 'Invalid login')
 
-      if (!res.ok) {
-        throw new Error(data.message || 'Invalid credentials');
-      }
-
-      // ✅ Properly use response fields
-      setMessage(`✅ Welcome, ${data.superadmin.email}`);
-
-      // Optional: store session info
-      localStorage.setItem('superadmin', JSON.stringify(data.superadmin));
-
-      // ✅ Redirect to dashboard
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 1000);
-    } catch (err) {
-      setMessage('❌ Login failed');
+      setMessage(`✅ Welcome ${data.superadmin.email}`)
+      localStorage.setItem('superadmin', JSON.stringify(data.superadmin))
+      setTimeout(() => navigate('/dashboard'), 1000)
+    } catch {
+      setMessage('❌ Login failed')
     }
-  };
+  }
 
   return (
     <div className="login-container">
-      <div className="login-card">
-        <h2>SuperAdmin Login</h2>
+      <h2>SuperAdmin Login</h2>
+
+      <label>Email:</label>
+      <input type="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+
+      <label>Password:</label>
+      <div className="password-field">
         <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
+          type={showPassword ? 'text' : 'password'}
+          placeholder="Enter Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
-        {message && <p className="message">{message}</p>}
+        <span onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+        </span>
       </div>
-    </div>
-  );
-};
 
-export default Login;
+      <button onClick={handleLogin}>Login</button>
+      {message && <p className="message">{message}</p>}
+
+      <p className="nav-link">
+        Don't have an account? <Link to="/superadmin/register">Register</Link>
+      </p>
+    </div>
+  )
+}
+
+export default Login

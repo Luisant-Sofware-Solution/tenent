@@ -1,6 +1,5 @@
-// src/prisma/client.ts or prisma/client.ts
-// import { PrismaClient } from '../../generated/prisma/client'; // adjust path if needed
-import { PrismaClient } from '../../prisma/generated/client';
+// src/db/superadminClient.ts
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 

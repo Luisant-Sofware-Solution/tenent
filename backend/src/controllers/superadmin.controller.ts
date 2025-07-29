@@ -1,53 +1,44 @@
-import { Request, Response } from 'express';
-import bcrypt from 'bcryptjs';
-import { PrismaClient } from '../../prisma/generated/client';
+import { Request, Response } from 'express'
+import bcrypt from 'bcryptjs'
+import { PrismaClient } from '../../prisma/generated/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
-export const createSuperAdmin = async (req: Request, res: Response) => {
+export const registerSuperAdmin = async (req: Request, res: Response) => {
+  const { email, password, name } = req.body
+
   try {
-    const { email, password, name, role = 'superadmin' } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10)
 
-    const existing = await prisma.superAdmin.findUnique({ where: { email } });
-    if (existing) {
-      return res.status(400).json({ error: 'SuperAdmin already exists' });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const superadmin = await prisma.superAdmin.create({
+    const newAdmin = await prisma.superAdmin.create({
       data: {
         email,
         password: hashedPassword,
         name,
-        role,
+        role: 'SUPERADMIN',
       },
-    });
+    })
 
-    res.status(201).json({ message: '✅ SuperAdmin created', superadmin });
+    res.status(201).json({ message: 'SuperAdmin registered', data: newAdmin })
   } catch (error) {
-    console.error('❌ Error creating SuperAdmin:', error);
-    res.status(500).json({ error: 'Failed to create SuperAdmin' });
+    console.error(error)
+    res.status(500).json({ error: 'Something went wrong' })
   }
-};
+}
 
 export const loginSuperAdmin = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body
 
-    const admin = await prisma.superAdmin.findUnique({ where: { email } });
-    if (!admin) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
+    const admin = await prisma.superAdmin.findUnique({ where: { email } })
+    if (!admin) return res.status(401).json({ error: 'Invalid credentials' })
 
-    const isMatch = await bcrypt.compare(password, admin.password);
-    if (!isMatch) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
+    const isMatch = await bcrypt.compare(password, admin.password)
+    if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' })
 
-    res.status(200).json({ message: '✅ Login successful', superadmin: admin });
+    res.status(200).json({ message: '✅ Login successful', superadmin: admin })
   } catch (error) {
-    console.error('❌ Login error:', error);
-    res.status(500).json({ error: 'Failed to login' });
+    console.error('❌ Login error:', error)
+    res.status(500).json({ error: 'Failed to login' })
   }
-};
+}

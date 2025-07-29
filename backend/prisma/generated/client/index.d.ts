@@ -60,6 +60,24 @@ export type Sales = $Result.DefaultSelection<Prisma.$SalesPayload>
 export type SuperAdmin = $Result.DefaultSelection<Prisma.$SuperAdminPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const Role: {
+  SUPERADMIN: 'SUPERADMIN',
+  ADMIN: 'ADMIN',
+  USER: 'USER'
+};
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+}
+
+export type Role = $Enums.Role
+
+export const Role: typeof $Enums.Role
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -1904,7 +1922,7 @@ export namespace Prisma {
     adminPassword: string | null
     dbUrl: string | null
     createdAt: Date | null
-    status: string | null
+    status: boolean | null
   }
 
   export type CompanyMaxAggregateOutputType = {
@@ -1915,7 +1933,7 @@ export namespace Prisma {
     adminPassword: string | null
     dbUrl: string | null
     createdAt: Date | null
-    status: string | null
+    status: boolean | null
   }
 
   export type CompanyCountAggregateOutputType = {
@@ -2067,7 +2085,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt: Date
-    status: string
+    status: boolean
     _count: CompanyCountAggregateOutputType | null
     _avg: CompanyAvgAggregateOutputType | null
     _sum: CompanySumAggregateOutputType | null
@@ -2171,7 +2189,7 @@ export namespace Prisma {
       adminPassword: string
       dbUrl: string
       createdAt: Date
-      status: string
+      status: boolean
     }, ExtArgs["result"]["company"]>
     composites: {}
   }
@@ -2608,7 +2626,7 @@ export namespace Prisma {
     readonly adminPassword: FieldRef<"Company", 'String'>
     readonly dbUrl: FieldRef<"Company", 'String'>
     readonly createdAt: FieldRef<"Company", 'DateTime'>
-    readonly status: FieldRef<"Company", 'String'>
+    readonly status: FieldRef<"Company", 'Boolean'>
   }
     
 
@@ -12844,6 +12862,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -12854,13 +12879,6 @@ export namespace Prisma {
    * Reference to a field of type 'Decimal[]'
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -12892,7 +12910,7 @@ export namespace Prisma {
     adminPassword?: StringFilter<"Company"> | string
     dbUrl?: StringFilter<"Company"> | string
     createdAt?: DateTimeFilter<"Company"> | Date | string
-    status?: StringFilter<"Company"> | string
+    status?: BoolFilter<"Company"> | boolean
     users?: UserListRelationFilter
     categories?: CategoryListRelationFilter
     units?: UnitListRelationFilter
@@ -12929,7 +12947,7 @@ export namespace Prisma {
     adminPassword?: StringFilter<"Company"> | string
     dbUrl?: StringFilter<"Company"> | string
     createdAt?: DateTimeFilter<"Company"> | Date | string
-    status?: StringFilter<"Company"> | string
+    status?: BoolFilter<"Company"> | boolean
     users?: UserListRelationFilter
     categories?: CategoryListRelationFilter
     units?: UnitListRelationFilter
@@ -12965,7 +12983,7 @@ export namespace Prisma {
     adminPassword?: StringWithAggregatesFilter<"Company"> | string
     dbUrl?: StringWithAggregatesFilter<"Company"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
-    status?: StringWithAggregatesFilter<"Company"> | string
+    status?: BoolWithAggregatesFilter<"Company"> | boolean
   }
 
   export type UserWhereInput = {
@@ -13623,7 +13641,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserCreateNestedManyWithoutCompanyInput
     categories?: CategoryCreateNestedManyWithoutCompanyInput
     units?: UnitCreateNestedManyWithoutCompanyInput
@@ -13640,7 +13658,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserUncheckedCreateNestedManyWithoutCompanyInput
     categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
     units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
@@ -13656,7 +13674,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUpdateManyWithoutCompanyNestedInput
     categories?: CategoryUpdateManyWithoutCompanyNestedInput
     units?: UnitUpdateManyWithoutCompanyNestedInput
@@ -13673,7 +13691,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
     units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
@@ -13690,7 +13708,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
   }
 
   export type CompanyUpdateManyMutationInput = {
@@ -13700,7 +13718,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CompanyUncheckedUpdateManyInput = {
@@ -13711,7 +13729,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserCreateInput = {
@@ -14403,6 +14421,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type UserListRelationFilter = {
     every?: UserWhereInput
     some?: UserWhereInput
@@ -14550,6 +14573,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type CompanyScalarRelationFilter = {
@@ -14740,11 +14771,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -14900,14 +14926,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15219,6 +15237,10 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type UserUpdateManyWithoutCompanyNestedInput = {
@@ -15761,10 +15783,6 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
   }
@@ -15993,6 +16011,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -16051,6 +16074,14 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -16092,11 +16123,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -16134,14 +16160,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16584,7 +16602,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     categories?: CategoryCreateNestedManyWithoutCompanyInput
     units?: UnitCreateNestedManyWithoutCompanyInput
     taxes?: TaxCreateNestedManyWithoutCompanyInput
@@ -16600,7 +16618,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
     units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
     taxes?: TaxUncheckedCreateNestedManyWithoutCompanyInput
@@ -16768,7 +16786,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     categories?: CategoryUpdateManyWithoutCompanyNestedInput
     units?: UnitUpdateManyWithoutCompanyNestedInput
     taxes?: TaxUpdateManyWithoutCompanyNestedInput
@@ -16784,7 +16802,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
     units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
     taxes?: TaxUncheckedUpdateManyWithoutCompanyNestedInput
@@ -16861,7 +16879,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserCreateNestedManyWithoutCompanyInput
     units?: UnitCreateNestedManyWithoutCompanyInput
     taxes?: TaxCreateNestedManyWithoutCompanyInput
@@ -16877,7 +16895,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserUncheckedCreateNestedManyWithoutCompanyInput
     units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
     taxes?: TaxUncheckedCreateNestedManyWithoutCompanyInput
@@ -16961,7 +16979,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUpdateManyWithoutCompanyNestedInput
     units?: UnitUpdateManyWithoutCompanyNestedInput
     taxes?: TaxUpdateManyWithoutCompanyNestedInput
@@ -16977,7 +16995,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
     taxes?: TaxUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17008,7 +17026,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserCreateNestedManyWithoutCompanyInput
     categories?: CategoryCreateNestedManyWithoutCompanyInput
     taxes?: TaxCreateNestedManyWithoutCompanyInput
@@ -17024,7 +17042,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserUncheckedCreateNestedManyWithoutCompanyInput
     categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
     taxes?: TaxUncheckedCreateNestedManyWithoutCompanyInput
@@ -17108,7 +17126,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUpdateManyWithoutCompanyNestedInput
     categories?: CategoryUpdateManyWithoutCompanyNestedInput
     taxes?: TaxUpdateManyWithoutCompanyNestedInput
@@ -17124,7 +17142,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
     taxes?: TaxUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17155,7 +17173,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserCreateNestedManyWithoutCompanyInput
     categories?: CategoryCreateNestedManyWithoutCompanyInput
     units?: UnitCreateNestedManyWithoutCompanyInput
@@ -17171,7 +17189,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserUncheckedCreateNestedManyWithoutCompanyInput
     categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
     units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
@@ -17255,7 +17273,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUpdateManyWithoutCompanyNestedInput
     categories?: CategoryUpdateManyWithoutCompanyNestedInput
     units?: UnitUpdateManyWithoutCompanyNestedInput
@@ -17271,7 +17289,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
     units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17380,7 +17398,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserCreateNestedManyWithoutCompanyInput
     categories?: CategoryCreateNestedManyWithoutCompanyInput
     units?: UnitCreateNestedManyWithoutCompanyInput
@@ -17396,7 +17414,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserUncheckedCreateNestedManyWithoutCompanyInput
     categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
     units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
@@ -17582,7 +17600,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUpdateManyWithoutCompanyNestedInput
     categories?: CategoryUpdateManyWithoutCompanyNestedInput
     units?: UnitUpdateManyWithoutCompanyNestedInput
@@ -17598,7 +17616,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
     units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17756,7 +17774,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserCreateNestedManyWithoutCompanyInput
     categories?: CategoryCreateNestedManyWithoutCompanyInput
     units?: UnitCreateNestedManyWithoutCompanyInput
@@ -17772,7 +17790,7 @@ export namespace Prisma {
     adminPassword: string
     dbUrl: string
     createdAt?: Date | string
-    status?: string
+    status?: boolean
     users?: UserUncheckedCreateNestedManyWithoutCompanyInput
     categories?: CategoryUncheckedCreateNestedManyWithoutCompanyInput
     units?: UnitUncheckedCreateNestedManyWithoutCompanyInput
@@ -17903,7 +17921,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUpdateManyWithoutCompanyNestedInput
     categories?: CategoryUpdateManyWithoutCompanyNestedInput
     units?: UnitUpdateManyWithoutCompanyNestedInput
@@ -17919,7 +17937,7 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     dbUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutCompanyNestedInput
     units?: UnitUncheckedUpdateManyWithoutCompanyNestedInput
