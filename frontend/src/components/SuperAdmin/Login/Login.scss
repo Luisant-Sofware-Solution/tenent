@@ -1,19 +1,32 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  background: linear-gradient(135deg, #0980ac 0%, #fcb69f 100%, #ffb6c1 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-container {
-  max-width: 400px;
-  margin: 5% auto;
+  width: 100%;
+  max-width: 420px;
   padding: 2rem;
+  margin: 2rem;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  font-family: monospace; // ⬅️ Set monospace globally here
-
+  font-family: monospace;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 
   h2 {
     text-align: center;
     color: #333;
     margin-bottom: 1.5rem;
+    font-size: 1.8rem;
   }
 
   label {
@@ -29,7 +42,8 @@
     border-radius: 6px;
     border: 1px solid #ccc;
     width: 100%;
-    font-family: monospace; // ⬅️ Apply monospace to inputs too
+    font-family: monospace;
+    box-sizing: border-box;
 
     &:focus {
       border-color: #007bff;
@@ -43,14 +57,35 @@
     align-items: center;
 
     input {
-      padding-right: 2.5rem;
+      flex: 1;
+      padding-right: 2.5rem; // space for the icon
     }
 
     span {
       position: absolute;
       right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
       cursor: pointer;
-      color: #888;
+      color: #666;
+    }
+  }
+
+  button {
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: monospace;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
     }
   }
 
@@ -80,51 +115,45 @@
       }
     }
   }
-
-  button {
-    margin-top: 1.5rem;
-    padding: 0.75rem;
-    background-color: #007bff;
-    color: white;
-    font-weight: 800;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-family: monospace; // ⬅️ Also apply to button
-
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
 }
 
-/* Responsive */
+/* Tablet view */
 @media screen and (max-width: 768px) {
   .login-container {
-    margin: 10% 5%;
+    margin: 10% auto;
     padding: 1.5rem;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .login-container {
-    margin: 10% 2%;
-    padding: 1rem;
 
     h2 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
 
-    input {
-      font-size: 0.95rem;
-    }
-
+    input,
     button {
       font-size: 0.95rem;
     }
+  }
+}
+
+/* Mobile view */
+@media screen and (max-width: 480px) {
+  .login-container {
+    margin: 10% 1rem;
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    input,
+    button {
+      font-size: 0.9rem;
+    }
 
     .nav-link {
+      font-size: 0.85rem;
+    }
+
+    .message {
       font-size: 0.85rem;
     }
   }

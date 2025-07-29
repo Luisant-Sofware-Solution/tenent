@@ -21,11 +21,17 @@ const Login = () => {
       const data = await res.json()
       if (!res.ok) throw new Error(data.message || 'Invalid login')
 
-      setMessage(`✅ Welcome ${data.superadmin.email}`)
+      // ✅ Store token and user in localStorage
+      localStorage.setItem('token', data.token)
       localStorage.setItem('superadmin', JSON.stringify(data.superadmin))
+
+      setMessage(`✅ Welcome ${data.superadmin.name || data.superadmin.email}`)
+
+      // Redirect after short delay
       setTimeout(() => navigate('/dashboard'), 1000)
-    } catch {
-      setMessage('❌ Login failed')
+    } catch (err: any) {
+      console.error('Login failed:', err)
+      setMessage('❌ Login failed. Please check your credentials.')
     }
   }
 
@@ -34,7 +40,13 @@ const Login = () => {
       <h2>SuperAdmin Login</h2>
 
       <label>Email:</label>
-      <input type="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input
+        type="email"
+        placeholder="Enter Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
 
       <label>Password:</label>
       <div className="password-field">
@@ -43,6 +55,7 @@ const Login = () => {
           placeholder="Enter Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <span onClick={() => setShowPassword(!showPassword)}>
           {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -53,7 +66,7 @@ const Login = () => {
       {message && <p className="message">{message}</p>}
 
       <p className="nav-link">
-        Don't have an account? <Link to="/superadmin/register">Register</Link>
+        Don&apos;t have an account? <Link to="/superadmin/register">Register</Link>
       </p>
     </div>
   )

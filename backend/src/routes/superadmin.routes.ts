@@ -1,3 +1,4 @@
+// src/routes/superadmin.routes.ts
 import { Router } from 'express'
 import { registerSuperAdmin, loginSuperAdmin } from '../controllers/superadmin.controller'
 

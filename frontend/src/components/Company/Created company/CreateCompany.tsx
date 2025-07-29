@@ -7,7 +7,6 @@ type CompanyResponse = {
   tenantId: string
   name: string
   adminEmail: string
-  dbUrl: string
   status: boolean
   createdAt: string
 }
@@ -17,17 +16,10 @@ const CreateCompany = () => {
     name: '',
     adminEmail: '',
     adminPassword: '',
-    dbUrl: '',
   })
 
   const [message, setMessage] = useState<string>('')
   const [showPassword, setShowPassword] = useState(false)
-  const [useCustomDbUrl, setUseCustomDbUrl] = useState(false)
-
-  const generateDbUrl = (companyName: string) => {
-    const dbName = companyName.trim().toLowerCase().replace(/\s+/g, '_')
-    return `postgresql://username:password@localhost:5432/${dbName}`
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -35,18 +27,15 @@ const CreateCompany = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const dbUrl = useCustomDbUrl ? formData.dbUrl : generateDbUrl(formData.name)
 
     try {
       const res = await axios.post<CompanyResponse>(
         'http://localhost:3001/api/companies',
-        {
-          ...formData,
-          dbUrl,
-        }
+        formData
       )
+
       setMessage(`✅ Company "${res.data.name}" created successfully!`)
-      setFormData({ name: '', adminEmail: '', adminPassword: '', dbUrl: '' })
+      setFormData({ name: '', adminEmail: '', adminPassword: '' })
     } catch (err: any) {
       setMessage(`❌ Error: ${err.response?.data?.error || 'Something went wrong'}`)
     }
@@ -55,6 +44,7 @@ const CreateCompany = () => {
   return (
     <div className="company-form-container">
       <h2>🚀 Create New Company</h2>
+
       <form onSubmit={handleSubmit}>
         <label>
           Company Name:
@@ -98,34 +88,13 @@ const CreateCompany = () => {
           </span>
         </label>
 
-        <label>
-          <input
-            type="checkbox"
-            checked={useCustomDbUrl}
-            onChange={() => setUseCustomDbUrl(!useCustomDbUrl)}
-          />
-          &nbsp;Use custom database URL
-        </label>
-
-        {useCustomDbUrl && (
-          <label>
-            Database URL:
-            <input
-              type="text"
-              name="dbUrl"
-              placeholder="postgresql://..."
-              value={formData.dbUrl}
-              onChange={handleChange}
-              required
-            />
-          </label>
-        )}
-
         <button type="submit">Create Company</button>
       </form>
 
       {message && (
-        <p className={message.startsWith('✅') ? 'success' : 'error'}>{message}</p>
+        <p className={message.startsWith('✅') ? 'success' : 'error'}>
+          {message}
+        </p>
       )}
     </div>
   )

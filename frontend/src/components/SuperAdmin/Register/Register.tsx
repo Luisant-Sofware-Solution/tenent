@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { Eye, EyeOff } from 'lucide-react'
 import './Register.scss'
 
 const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' })
+  const [showPassword, setShowPassword] = useState(false)
   const [message, setMessage] = useState('')
   const navigate = useNavigate()
 
@@ -32,17 +34,51 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <h2>SuperAdmin Register</h2>
+      <h2>🛡️ SuperAdmin Registration</h2>
       <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input type="text" name="name" value={form.name} onChange={handleChange} required />
-        <label>Email:</label>
-        <input type="email" name="email" value={form.email} onChange={handleChange} required />
-        <label>Password:</label>
-        <input type="password" name="password" value={form.password} onChange={handleChange} required />
+        <label htmlFor="name">Full Name</label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          placeholder="e.g. John Doe"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
+
+        <label htmlFor="email">Email Address</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          placeholder="admin@example.com"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+
+        <label htmlFor="password">Password</label>
+        <div className="password-field">
+          <input
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            placeholder="••••••••"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+          <span className="toggle-icon" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </span>
+        </div>
+
         <button type="submit">Register</button>
       </form>
+
       {message && <p className="message">{message}</p>}
+
       <p className="nav-link">
         Already have an account? <Link to="/superadmin/login">Login</Link>
       </p>
