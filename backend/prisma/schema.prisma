@@ -1,7 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
-  // output          = "./generated/client"
-  previewFeatures = ["multiSchema"]
+  output          = "./generated/client"
+  // previewFeatures = ["multiSchema"]
 }
 
 datasource db {
@@ -26,7 +26,7 @@ model Company {
   adminPassword String
   dbUrl         String
   createdAt     DateTime  @default(now())
-  status        Boolean    @default(true)
+  status        Boolean   
   users      User[]
   categories Category[]
   units      Unit[]

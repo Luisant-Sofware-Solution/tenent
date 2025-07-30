@@ -1,13 +1,9 @@
 // src/routes/company.routes.ts
-import { Router } from 'express';
-import { createCompany, getCompanies } from '../controllers/company.controller';
+import express from 'express';
+import { createCompany, getCompany } from '../controllers/company.controller';
 
-const router = Router();
+const router = express.Router();
 
-router.post('/companies', createCompany); // POST /api/companies
-router.get('/companies', (req, res) => {
-  console.log("🔥 GET /api/companies hit");
-  getCompanies(req, res);
-});
-
+router.post('/companies', createCompany);
+router.get('/company/:tenantId', getCompany);
 export default router;

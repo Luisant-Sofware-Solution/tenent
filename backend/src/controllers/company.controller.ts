@@ -1,78 +1,90 @@
-// src/controllers/company.controller.ts
 import { Request, Response } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 import prisma from '../db/client';
+import bcrypt from 'bcryptjs';
 
-// ✅ Create a new company
-export const createCompany = async (req: Request, res: Response) => {
-  try {
-    const { name, adminEmail, adminPassword, dbUrl } = req.body;
-
-    const missingFields = [];
-    if (!name) missingFields.push('name');
-    if (!adminEmail) missingFields.push('adminEmail');
-    if (!adminPassword) missingFields.push('adminPassword');
-    if (!dbUrl) missingFields.push('dbUrl');
-
-    if (missingFields.length > 0) {
-      return res.status(400).json({ error: `Missing field(s): ${missingFields.join(', ')}` });
-    }
-
-    const tenantId = `tenant_${uuidv4()}`;
-
-    const existing = await prisma.company.findFirst({
-      where: {
-        OR: [{ tenantId }, { adminEmail }],
-      },
+/**
+ * Generates the next tenantId like "company_0001", "company_0002"
+ * based on existing tenantIds starting with "company_"
+ */
+function generateGlobalCompanyTenantId(existingTenantIds: string[]): string {
+  const suffixes = existingTenantIds
+    .filter(id => id.startsWith('company_'))
+    .map(id => {
+      const num = parseInt(id.split('_')[1]);
+      return isNaN(num) ? 0 : num;
     });
 
-    if (existing) {
-      return res.status(400).json({ error: 'Company already exists.' });
+  const next = Math.max(...suffixes, 0) + 1;
+  const padded = String(next).padStart(4, '0');
+
+  return `company_${padded}`;
+}
+
+// ✅ Create Company: globally incremented tenantId and dynamic schema
+export const createCompany = async (req: Request, res: Response) => {
+  try {
+    const { name, adminEmail, adminPassword } = req.body;
+    if (!name || !adminEmail || !adminPassword) {
+      return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const company = await prisma.company.create({
+    // 📦 Fetch all existing tenantIds with prefix "company_"
+    const existing = await prisma.company.findMany({
+      where: { tenantId: { startsWith: 'company_' } },
+      select: { tenantId: true },
+    });
+
+    const existingTenantIds = existing.map(c => c.tenantId);
+    const tenantId = generateGlobalCompanyTenantId(existingTenantIds);
+
+    const baseDbUrl = process.env.DATABASE_URL?.split('?')[0];
+    if (!baseDbUrl) {
+      return res.status(500).json({ error: 'DATABASE_URL not configured' });
+    }
+
+    const dbUrl = `${baseDbUrl}?schema=${tenantId}`;
+    await prisma.$executeRawUnsafe(`CREATE SCHEMA IF NOT EXISTS "${tenantId}";`);
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
+
+    const newCompany = await prisma.company.create({
       data: {
         tenantId,
         name,
         adminEmail,
-        adminPassword,
+        adminPassword: hashedPassword,
         dbUrl,
-      },
-      select: {
-        id: true,
-        tenantId: true,
-        name: true,
-        adminEmail: true,
-        dbUrl: true,
         status: true,
-        createdAt: true,
       },
     });
 
-    res.status(201).json(company);
-  } catch (err: any) {
-    console.error('❌ Error creating company:', err);
-    res.status(500).json({ error: err.message });
+    res.status(201).json({ message: 'Company created', company: newCompany });
+  } catch (error) {
+    console.error('Error creating company:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
-// ✅ Get all companies
-export const getCompanies = async (_req: Request, res: Response) => {
+/**
+ * Retrieves a company by tenantId
+ */
+export const getCompany = async (req: Request, res: Response) => {
   try {
-    const companies = await prisma.company.findMany({
-      select: {
-        id: true,
-        tenantId: true,
-        name: true,
-        adminEmail: true,
-        dbUrl: true,
-        status: true,
-        createdAt: true,
-      },
+    const { tenantId } = req.params;
+
+    if (!tenantId) {
+      return res.status(400).json({ error: 'tenantId is required' });
+    }
+
+    const company = await prisma.company.findUnique({
+      where: { tenantId },
     });
 
-    res.json(companies);
-  } catch (err: any) {
-    res.status(500).json({ error: err.message });
+    if (!company) {
+      return res.status(404).json({ error: 'Company not found' });
+    }
+
+    res.status(200).json(company);
+  } catch (error) {
+    console.error('Error fetching company:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
