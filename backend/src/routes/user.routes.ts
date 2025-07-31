@@ -3,7 +3,7 @@ import { createUser } from '../controllers/user.controller';
 
 const router = express.Router();
 
-// POST /users
+// Mount route correctly
 router.post('/', createUser);
 
 export default router;

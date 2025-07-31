@@ -1,86 +1,59 @@
 // src/controllers/product.controller.ts
-import { Request, Response } from 'express'
-import prisma from '../db/client'
+import { Request, Response } from 'express';
+import prisma from '../db/client';
+import { insertProductIntoTenant } from '../services/product.service';
 
-// ✅ Create a new product
+// Create product and insert into tenant schema
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    const {
-      itemCode,
-      itemName,
-      shortCode,
-      printName,
-      hsnCode,
-      categoryId,
-      unitId,
-      taxId,
-      prate,
-      srate,
-      mrp,
-      userId,
-      modifiedUserId,
-      imageSaveInLocation,
-      companyId,
-    } = req.body
+    const { companyId } = req.body;
 
-    // ⚠️ Ensure foreign keys exist: User, Category, Unit, Tax, Company
-    const product = await prisma.product.create({
-      data: {
-        itemCode,
-        itemName,
-        shortCode,
-        printName,
-        hsnCode,
-        prate,
-        srate,
-        mrp,
-        isActive: true,
-        createdDate: new Date(),
-        modifiedDate: new Date(),
-        modifiedUserId, // optional scalar
-        imageSaveInLocation,
+    const company = await prisma.company.findUnique({
+      where: { id: companyId },
+      select: { tenantId: true },
+    });
 
-        // 🔗 Foreign key relations
-        category: { connect: { id: categoryId } },
-        unit: { connect: { id: unitId } },
-        tax: { connect: { id: taxId } },
-        user: { connect: { id: userId } },
-        company: { connect: { id: companyId } },
-      },
-    })
-
-    res.status(201).json({ success: true, data: product })
-  } catch (err: any) {
-    console.error('Create Product Error:', err)
-
-    // Specific Prisma error handling
-    if (err.code === 'P2025') {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid foreign key references',
-      })
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'Company not found' });
     }
 
-    res.status(500).json({ success: false, message: 'Failed to create product' })
-  }
-}
+    const tenantId = company.tenantId;
+    const product = await insertProductIntoTenant(tenantId, req.body);
 
-// ✅ Get all products
-export const getAllProducts = async (_req: Request, res: Response) => {
-  try {
-    const products = await prisma.product.findMany({
-      include: {
-        category: true,
-        unit: true,
-        tax: true,
-        user: true,
-        company: true,
-      },
-    })
-
-    res.status(200).json({ success: true, data: products })
+    res.status(201).json({ success: true, data: product });
   } catch (err) {
-    console.error('Get Products Error:', err)
-    res.status(500).json({ success: false, message: 'Failed to fetch products' })
+    console.error('Create Product Error:', err);
+    res.status(500).json({ success: false, message: 'Failed to create product' });
   }
-}
+};
+
+// Placeholder to get all products (adjust for tenant DB if needed)
+export const getAllProducts = async (req: Request, res: Response) => {
+  try {
+    const { companyId } = req.query;
+
+    if (!companyId) {
+      return res.status(400).json({ success: false, message: 'companyId is required' });
+    }
+
+    const company = await prisma.company.findUnique({
+      where: { id: Number(companyId) },
+      select: { tenantId: true },
+    });
+
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'Company not found' });
+    }
+
+    const tenantId = company.tenantId;
+
+    const products = await prisma.$queryRawUnsafe(
+      `SELECT * FROM "${tenantId}"."Product"`
+    );
+
+    res.status(200).json({ success: true, data: products });
+  } catch (err) {
+    console.error('Get Products Error:', err);
+    res.status(500).json({ success: false, message: 'Error fetching products' });
+  }
+};

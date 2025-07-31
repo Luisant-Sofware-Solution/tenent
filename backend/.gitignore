@@ -1,35 +1,76 @@
+# ======================================================
+# .gitignore for Node.js + TypeScript + Prisma + Vite
+# ======================================================
+
+# ----------------------------
 # Node modules
+# ----------------------------
 node_modules/
 
+# ----------------------------
 # Environment variables
+# ----------------------------
 .env
 .env.local
 .env.*.local
+!.env.example
 
-# Prisma generated client
+# ----------------------------
+# Prisma
+# ----------------------------
 prisma/generated/
 generated/
 prisma/migrations/
+prisma/dev.db
+*.db
+*.sqlite
 
+# ----------------------------
 # Build output
+# ----------------------------
 dist/
 build/
+.vite/
 
-# TypeScript cache
+# ----------------------------
+# TypeScript
+# ----------------------------
 *.tsbuildinfo
 
+# ----------------------------
 # Logs
+# ----------------------------
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+log.txt
+logs/
 
+# ----------------------------
 # OS-specific files
+# ----------------------------
 .DS_Store
 Thumbs.db
 
+# ----------------------------
 # Editor settings
+# ----------------------------
 .vscode/
 .idea/
 
-# Git
+# ----------------------------
+# Git / Swap / Temp Files
+# ----------------------------
 *.swp
+*.swo
+*.tmp
+*.bak
+*.backup
+
+# ----------------------------
+# Testing (Optional)
+# ----------------------------
+coverage/
+test-results/
+jest.config.js
+.vitest/

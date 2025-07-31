@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './CreateCompany.scss';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateCompany = () => {
   const [formData, setFormData] = useState({
@@ -7,9 +9,6 @@ const CreateCompany = () => {
     adminEmail: '',
     adminPassword: '',
   });
-
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,77 +27,59 @@ const CreateCompany = () => {
       const result = await response.json();
 
       if (response.ok) {
-        const {
-          name,
-          tenantId,
-          dbUrl,
-          status,
-          createdAt,
-          adminEmail,
-          id,
-        } = result.company;
-
-        const schema = dbUrl?.split('schema=')[1] || 'N/A';
-        const formattedDate = new Date(createdAt).toLocaleString();
-
-//         setMessage(
-//           `✅ Company "${name}" created successfully!
-// • ID: ${id}
-// • Admin Email: ${adminEmail}
-// • Tenant ID: ${tenantId}
-// • Database Schema: ${schema}
-// • Status: ${status ? 'Active' : 'Inactive'}
-// • Created At: ${formattedDate}`
-//         );
-
-        setError('');
+        const { name, tenantId } = result.company;
+        toast.success(`Company "${name}" created successfully!`, {
+          position: 'top-right',
+        });
         setFormData({ name: '', adminEmail: '', adminPassword: '' });
       } else {
-        setError(result.error || 'Something went wrong');
-        setMessage('');
+        toast.error(result.error || 'Something went wrong', {
+          position: 'top-right',
+        });
       }
     } catch (err) {
-      setError('Network error');
-      setMessage('');
+      toast.error('Network error', {
+        position: 'top-right',
+      });
     }
   };
 
   return (
-    <form className="company-form" onSubmit={handleSubmit}>
-      <h2>Create Company</h2>
+    <div className="company-form-wrapper">
+      <form className="company-form" onSubmit={handleSubmit}>
+        <h2>Create Company</h2>
 
-      <input
-        type="text"
-        name="name"
-        placeholder="Company Name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-      />
+        <input
+          type="text"
+          name="name"
+          placeholder="Company Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
 
-      <input
-        type="email"
-        name="adminEmail"
-        placeholder="Admin Email"
-        value={formData.adminEmail}
-        onChange={handleChange}
-        required
-      />
+        <input
+          type="email"
+          name="adminEmail"
+          placeholder="Admin Email"
+          value={formData.adminEmail}
+          onChange={handleChange}
+          required
+        />
 
-      <input
-        type="password"
-        name="adminPassword"
-        placeholder="Admin Password"
-        value={formData.adminPassword}
-        onChange={handleChange}
-        required
-      />
+        <input
+          type="password"
+          name="adminPassword"
+          placeholder="Admin Password"
+          value={formData.adminPassword}
+          onChange={handleChange}
+          required
+        />
 
-      <button type="submit">Submit</button>
-
-      {message && <pre className="success">{message}</pre>}
-      {error && <p className="error">{error}</p>}
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+      <ToastContainer />
+    </div>
   );
 };
 

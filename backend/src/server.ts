@@ -31,12 +31,12 @@ import salesRoutes from './routes/sales.routes'
 app.use('/api/superadmin', superAdminRoutes)
 app.use('/api', companyRoutes);
 console.log('Company routes mounted at /api');
-app.use('/api/users', userRoutes)
-app.use('/api/categories', categoryRoutes)
-app.use('/api/units', unitRoutes)
-app.use('/api/taxes', taxRoutes)
-app.use('/api/products', productRoutes)
-app.use('/api/sales', salesRoutes)
+app.use('/api/users', userRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/units', unitRoutes);
+app.use('/api/taxes', taxRoutes);
+app.use('/api', productRoutes);
+app.use('/api/sales', salesRoutes);
 
 // ✅ Health check
 app.get('/', (_req, res) => {

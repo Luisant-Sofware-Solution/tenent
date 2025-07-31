@@ -1,13 +1,12 @@
 // src/routes/product.routes.ts
-import express from 'express'
-import { createProduct, getAllProducts } from '../controllers/product.controller'
+import express from 'express';
+import { createProduct, getAllProducts } from '../controllers/product.controller';
 
-const router = express.Router()
+const router = express.Router();
 
-// POST /api/products
-router.post('/', createProduct)
+// This is the likely error line:
+router.get('/', getAllProducts); // <- Check if `getAllProducts` is really a function
 
-// GET /api/products
-router.get('/', getAllProducts)
+router.post('/', createProduct);
 
-export default router
+export default router;
