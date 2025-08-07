@@ -1,9 +1,23 @@
-// src/routes/company.routes.ts
-import express from 'express';
-import { createCompany } from '../controllers/company.controller';
+import { Router } from 'express';
+import { login } from '../controllers/auth.controller';
+import {
+  createCompany,
+  getCompanies,
+  getCompanyById,
+  patchCompanyById,
+  deleteCompanyById
+} from '../controllers/company.controller';
 
-const router = express.Router();
+const router = Router();
 
+// Auth
+router.post('/login', login);
+
+// Company
 router.post('/companies', createCompany);
-// router.get('/company/:tenantId', getCompany);
+router.get('/companies', getCompanies);
+router.get('/companies/:id', getCompanyById);
+router.patch('/companies/:id', patchCompanyById);
+router.delete('/companies/:id', deleteCompanyById);
+
 export default router;

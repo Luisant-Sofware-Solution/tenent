@@ -34,6 +34,8 @@ model Company {
   products   Product[]
   sales      Sales[]
 
+  
+
   @@map("Companies")
   @@schema("public")
 }
@@ -41,7 +43,7 @@ model Company {
 model User {
   id        Int        @id @default(autoincrement())
   name      String
-  email     String
+  email     String  @unique
   password  String
   role      String
   companyId Int

@@ -1,54 +1,71 @@
-import { PrismaClient } from '@prisma/client';
+// src/services/user.service.ts
+import { PrismaClient } from '../../prisma/generated/client';
+import bcrypt from 'bcryptjs';
 
-const prisma = new PrismaClient();
+// Helper to get tenant-specific Prisma client
+function getTenantPrisma(tenantId: string) {
+  const url = `${process.env.DATABASE_URL?.split('?')[0]}?schema=${tenantId}`;
+  return new PrismaClient({ datasources: { db: { url } } });
+}
 
-interface CreateUserDto {
+// Create User
+export const createUser = async ({
+  tenantId,
+  name, 
+  email,
+  password,
+  role,
+  companyId,
+}: {
+  tenantId: string;
   name: string;
   email: string;
   password: string;
   role: string;
   companyId: number;
-}
-
-export async function createUserForCompany(dto: CreateUserDto) {
-  const { name, email, password, role, companyId } = dto;
-
-  const company = await prisma.company.findUnique({
-    where: { id: companyId },
+}) => {
+  const prisma = getTenantPrisma(tenantId);
+  const hashed = await bcrypt.hash(password, 10);
+  return prisma.user.create({
+    data: {
+      name,
+      email,
+      password: hashed,
+      role,
+      companyId,
+    },
   });
+};
 
-  if (!company?.tenantId) {
-    throw new Error(`Company ID ${companyId} not found`);
+// Get All Users
+export const getUsers = async (tenantId: string) => {
+  const prisma = getTenantPrisma(tenantId);
+  return prisma.user.findMany({
+    orderBy: { id: 'asc' },
+  });
+};
+
+// Update User
+export const updateUserById = async (
+  tenantId: string,
+  userId: number,
+  data: { name?: string; email?: string; password?: string; role?: string }
+) => {
+  const prisma = getTenantPrisma(tenantId);
+  const updateData: any = { ...data };
+
+  if (data.password) {
+    updateData.password = await bcrypt.hash(data.password, 10);
   }
 
-  const tenantSchema = company.tenantId;
+  return prisma.user.update({
+    where: { id: userId },
+    data: updateData,
+  });
+};
 
-  const schemaExists: { schema_name: string }[] = await prisma.$queryRawUnsafe(
-    `SELECT schema_name FROM information_schema.schemata WHERE schema_name = $1`,
-    tenantSchema
-  );
-
-  if (!schemaExists.length) {
-    throw new Error(`Schema "${tenantSchema}" does not exist`);
-  }
-
-  const result: { id: number }[] = await prisma.$queryRawUnsafe(
-    `
-    INSERT INTO "${tenantSchema}"."User"
-      ("name", "email", "password", "role", "companyId")
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING id
-    `,
-    name,
-    email,
-    password,
-    role,
-    companyId
-  );
-
-  return {
-    success: true,
-    userId: result[0]?.id,
-    message: `User created in schema "${tenantSchema}"`,
-  };
-}
+// Delete User
+export const deleteUserById = async (tenantId: string, userId: number) => {
+  const prisma = getTenantPrisma(tenantId);
+  return prisma.user.delete({ where: { id: userId } });
+};

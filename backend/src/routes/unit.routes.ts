@@ -1,9 +1,9 @@
-import express from 'express'
-import { createUnit } from '../controllers/unit.controller'
+import express from 'express';
+import { createUnit, getUnits } from '../controllers/unit.controller';
 
-const router = express.Router()
+const router = express.Router();
 
-// POST /api/units
-router.post('/', createUnit)
+router.post('/', createUnit);
+router.get('/:companyId', getUnits);
 
-export default router
+export default router;

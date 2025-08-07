@@ -41,7 +41,6 @@ const Register = () => {
           id="name"
           type="text"
           name="name"
-          placeholder="e.g. John Doe"
           value={form.name}
           onChange={handleChange}
           required
@@ -52,7 +51,6 @@ const Register = () => {
           id="email"
           type="email"
           name="email"
-          placeholder="admin@example.com"
           value={form.email}
           onChange={handleChange}
           required
@@ -64,12 +62,11 @@ const Register = () => {
             id="password"
             type={showPassword ? 'text' : 'password'}
             name="password"
-            placeholder="••••••••"
             value={form.password}
             onChange={handleChange}
             required
           />
-          <span className="toggle-icon" onClick={() => setShowPassword(!showPassword)}>
+          <span onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </span>
         </div>

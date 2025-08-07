@@ -19,19 +19,15 @@ const Login = () => {
       })
 
       const data = await res.json()
-      if (!res.ok) throw new Error(data.message || 'Invalid login')
+      if (!res.ok) throw new Error(data.error || 'Invalid login')
 
-      // ✅ Store token and user in localStorage
       localStorage.setItem('token', data.token)
       localStorage.setItem('superadmin', JSON.stringify(data.superadmin))
 
-      setMessage(`✅ Welcome ${data.superadmin.name || data.superadmin.email}`)
-
-      // Redirect after short delay
+      setMessage(`✅ Welcome ${data.superadmin.name}`)
       setTimeout(() => navigate('/dashboard'), 1000)
     } catch (err: any) {
-      console.error('Login failed:', err)
-      setMessage('❌ Login failed. Please check your credentials.')
+      setMessage('❌ Login failed. Check credentials.')
     }
   }
 
@@ -45,7 +41,6 @@ const Login = () => {
         placeholder="Enter Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        required
       />
 
       <label>Password:</label>
@@ -55,7 +50,6 @@ const Login = () => {
           placeholder="Enter Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
         <span onClick={() => setShowPassword(!showPassword)}>
           {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
